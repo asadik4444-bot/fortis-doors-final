@@ -1,102 +1,162 @@
-# Fortis Doors V6 — Alpine.js Static Site
+# Fortis Doors V6 — Site Manual
 
-## Tech Stack
-- **HTML** — 4 static pages (index, catalog, about, contact)
-- **Tailwind CSS** — via Play CDN with custom bronze color palette
-- **Alpine.js** — lightweight reactivity (~15KB) for menu, filters, forms, i18n
-- **Phosphor Icons** — web font version (unpkg CDN)
-- **Google Fonts** — DM Serif Display (headings) + Outfit (body)
-- **No build step** — no Node.js, no npm, no bundler required
+## Quick Start
+```bash
+cd V6
+python3 -m http.server 3002
+# Open http://localhost:3002
+```
+
+## Deploy
+**Pure static site** — no backend, no database, no server-side code.
+Deploy to any static host:
+
+| Host | How | Cost |
+|------|-----|------|
+| **Netlify** | Drag & drop V6 folder at netlify.com | Free |
+| **Vercel** | Connect GitHub repo at vercel.com | Free |
+| **Cloudflare Pages** | Connect GitHub repo | Free |
+| **GitHub Pages** | Enable in repo Settings → Pages | Free |
+
+### Custom Domain
+1. Buy a domain (e.g. fortisdoors.uz)
+2. Add custom domain in your hosting dashboard
+3. Update DNS (A record or CNAME as instructed)
+4. HTTPS is automatic and free on all hosts above
+
+---
+
+## How to Change Things
+
+### Product Photos
+```
+Location: images/doors/
+Format:   JPEG, 600px wide, portrait
+```
+Replace the file keeping the **same filename**:
+```
+images/doors/modern-m1-black.jpg   ← replace this file
+images/doors/elite-e2-cherry.jpg   ← or this one
+```
+
+### Product Names & Descriptions
+```
+File: js/i18n.js
+```
+Search for the product slug (e.g. `modern-m1-black`). It appears **3 times** — once per language:
+- **English:** ~line 120–170
+- **Russian:** ~line 295–350
+- **Uzbek:** ~line 470–520
+
+Each product has: `name`, `short` (catalogue card), `full` (detail page).
+**Edit all 3 languages** when changing text.
+
+### Hero Video
+```
+Replace: video/hero-bg.mp4
+Format:  MP4, H.264, 1280px wide, no audio, <2MB
+Optional: replace video/hero-poster.jpg (first frame)
+```
+
+### Construction / Cross-Section Specs
+```
+File: index.html (search for "Сечение")
+```
+Values to change (~line 780–820):
+```
+16 mm    ← outer panel thickness
+1.5 mm   ← steel thickness (catalog says 1mm door / 1.2mm frame)
+3x       ← number of seals
+60 mm    ← insulation thickness
+```
+Also update labels in `js/i18n.js` — search for `engineering` section (3 places, one per language).
+
+### Contact Info
+| What | Search for | Files |
+|------|-----------|-------|
+| Phone | `998930468008` | All 5 HTML files |
+| Email | `asadik4444@gmail.com` | All 5 HTML files |
+| Address | `addressValue` in i18n.js | 3 places (EN/RU/UZ) |
+| WhatsApp | `wa.me/998930468008` | All 5 HTML files |
+| Telegram | `t.me/fortisdoors` | All 5 HTML files |
+
+### Logo
+| File | Where used |
+|------|-----------|
+| `images/fortis-logo.png` | Header (all pages) — bronze on transparent |
+| `images/fortis-logo-light.png` | Footer (all pages) — white on transparent |
+| `favicon.svg` | Browser tab icon |
+
+### Add a Language
+1. Open `js/i18n.js`
+2. Copy the entire `ru: { ... }` block
+3. Paste as new key (e.g. `tr: { ... }`)
+4. Translate all values
+5. Add language button in header of each HTML file
+
+---
 
 ## File Structure
 ```
 V6/
-├── index.html          Home page (hero, brand story, collections, features, engineering, process, testimonials, CTA)
-├── catalog.html        Product catalog with category filters (12 products, 5 categories)
-├── about.html          About page (values, milestones)
-├── contact.html        Contact form + info panel
-├── css/
-│   └── style.css       Custom CSS: scroll reveals, animations, scrollbar, grain overlay, utilities
+├── index.html              ← Homepage
+├── catalog.html            ← Catalogue with filters
+├── product.html            ← Product detail (?slug= param)
+├── about.html              ← About page
+├── contact.html            ← Contact page
+├── favicon.svg             ← Browser tab icon
+├── css/style.css           ← Custom styles & animations
 ├── js/
-│   ├── i18n.js         All translations (ru, en, uz) — single object
-│   └── app.js          Alpine stores, components, products data, IntersectionObserver scroll reveals
-└── README.md
+│   ├── app.js              ← Alpine components & interactions
+│   ├── i18n.js             ← ALL translations + 46 product entries
+│   └── tailwind-config.js  ← Shared color/font config
+├── images/
+│   ├── doors/              ← 46 product photos (600px JPEGs)
+│   ├── fortis-logo.png     ← Header logo
+│   ├── fortis-logo-light.png ← Footer logo
+│   ├── showroom-brand.jpg  ← Brand story photo
+│   ├── showroom-variety.jpg ← About hero photo
+│   └── craftsmanship.jpg   ← Craftsmanship section photo
+├── video/
+│   ├── hero-bg.mp4         ← Hero background (437KB)
+│   └── hero-poster.jpg     ← Video poster frame
+└── CHANGELOG-2026-03-25.md ← Detailed change log
 ```
 
-## Design System (matches V4)
-- **Accent color:** Bronze #A67C52 (full palette 50–950)
-- **Fonts:** DM Serif Display (serif headings), Outfit (sans body)
-- **No pure black:** uses zinc-950 instead
-- **Border radius:** 2.5rem (rounded-4xl) on cards/containers
-- **Shadows:** bronze-tinted `rgba(166,124,82,0.06)`
-- **Background:** #FAF9F7 (warm cream)
-- **Animations:** CSS transitions + IntersectionObserver (replaces Framer Motion)
-- **Easing:** cubic-bezier(0.16, 1, 0.3, 1) — "ease-premium"
+---
 
-## i18n (Internationalization)
-- 3 languages: Russian (default), English, Uzbek
-- Stored in `js/i18n.js` as a single `translations` object
-- Alpine.js store at `$store.i18n` with `.locale`, `.t`, `.setLocale(code)`
-- Language preference saved to `localStorage` (key: `fortis-locale`)
-- All visible text uses `x-text="$store.i18n.t.section.key"`
+## Security
 
-## Contact Form
-The form offers 3 contact channels:
-1. **Email (mailto)** — form submit opens the user's email client with pre-filled subject/body to asadik4444@gmail.com
-2. **WhatsApp** — link to wa.me/41796154174 (shown below submit button + in info panel)
-3. **Telegram** — link to t.me/fortisdoors (shown below submit button + in info panel)
+### Is it safe?
+**Yes — this is one of the safest website types possible.**
 
-To add server-side form handling later, replace the `submitForm()` method in `app.js` with a `fetch()` POST to:
-- Formspree (free tier)
-- Netlify Forms (if hosted on Netlify)
-- A Cloudflare Worker that forwards to Telegram bot API
+| Concern | Status |
+|---------|--------|
+| Backend / server code | **None** — pure HTML files |
+| Database | **None** — nothing to breach |
+| User accounts / passwords | **None** — nothing to steal |
+| API keys / secrets | **None** — nothing exposed |
+| Cookies / tracking | **None** — no GDPR concerns |
+| Form data storage | **None** — contact form opens email client |
+| HTTPS | **Free & automatic** on all recommended hosts |
 
-## Company Info
-- **Name:** Fortis Doors
-- **Location:** Tashkent, Uzbekistan
-- **Phone:** +41 79 615 41 74
-- **Email:** asadik4444@gmail.com
-- **WhatsApp:** wa.me/41796154174
-- **Telegram:** t.me/fortisdoors
+### Can someone hack it?
+There is **nothing to hack**. No database, no server, no login system. The site is just files served to the browser. Modifying it requires access to your GitHub repo or hosting account — protect those credentials.
 
-## Products
-12 door models across 5 categories:
-- **Interior (3):** Milano Classic, Nordic Flush, Venetian Glass
-- **Exterior (3):** Fortress Oak, Modern Steel, Thermal Guard
-- **Sliding (2):** Glide Series, Pocket Slim
-- **Fire-Rated (2):** Fire Shield 30, Fire Shield 60
-- **Custom (2):** Artisan Carved, Pivot Grand
+### What could go wrong?
+The only theoretical issue: if CDN links go down (Tailwind, Alpine, Google Fonts), styles/interactions would temporarily break. This is extremely rare.
 
-Product data is hardcoded in `js/app.js`. Product names/descriptions are translated via `$store.i18n.t.products[slug]`.
+### Bottom line
+**Deploy it, point your domain, and forget about it.** Zero maintenance required. Only touch it again to update content.
 
-## Running Locally
-```bash
-# Any static server works. Examples:
-python3 -m http.server 3002
-# or
-npx serve .
-# or just open index.html in a browser (some features need a server for CORS)
-```
+---
 
-## Hosting
-Can be deployed to **any** static hosting:
-- Netlify / Cloudflare Pages / Vercel (free tiers)
-- GitHub Pages
-- Any shared hosting ($3/mo)
-- S3 + CloudFront
-- Literally any web server (nginx, Apache, caddy)
-
-No server-side runtime needed. Total payload: ~7 files, ~180KB before CDN assets.
-
-## Key Differences from V4 (Next.js)
-| Feature | V4 (Next.js) | V6 (Alpine.js) |
-|---|---|---|
-| Runtime | Node.js required | None |
-| Build step | `npm run build` | None |
-| JS to browser | ~200KB+ (React + Framer Motion) | ~30KB (Alpine.js + icons) |
-| Total files | ~114 (with node_modules) | 7 |
-| Animations | Framer Motion (JS) | CSS transitions + IntersectionObserver |
-| i18n | next-intl (middleware + routing) | Alpine store + localStorage |
-| Image optimization | Next.js `<Image>` | Native `<img>` with lazy loading |
-| Contact form backend | API route → Telegram bot | mailto + WhatsApp/Telegram links |
-| Hosting | Vercel/Node server | Any static host |
+## Tech Stack
+| Component | Library | Version |
+|-----------|---------|---------|
+| CSS | Tailwind CSS (CDN) | Latest |
+| JS | Alpine.js | 3.14.9 |
+| Icons | Phosphor Icons | 2.1.1 |
+| Fonts | DM Serif Display + Outfit | Google Fonts |
+| Animations | GSAP + ScrollTrigger | 3.12.5 |
+| Build step | **None** | Pure static |
