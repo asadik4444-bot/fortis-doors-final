@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ru" x-data dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortis Doors — Premium Door Solutions</title>
+    <meta name="description" content="Fortis Doors — premium engineered doors for residential and commercial projects. Quality craftsmanship from Янгиюль, Узбекистан.">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 1. Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. Tailwind Config -->
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    bronze: {
+                        50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
+                        400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
+                        800: '#523A26', 900: '#3A2919', 950: '#1F160D',
+                    },
+                },
+                fontFamily: {
+                    serif: ['DM Serif Display', 'Georgia', 'serif'],
+                    sans: ['Outfit', 'system-ui', 'sans-serif'],
+                },
+            },
+        },
+    }
+    </script>
+
+    <!-- 3. Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+    <!-- 4. Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+
+    <!-- 5. Custom CSS & Scripts -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/i18n.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Prevent flash of unstyled Alpine content -->
+    <style>[x-cloak] { display: none !important; }</style>
+</head>
+<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased" x-cloak>
+
+    <!-- ============================================== -->
+    <!-- HEADER -->
+    <!-- ============================================== -->
+    <header
+        x-data="headerComponent()"
+        @scroll.window="onScroll()"
+        :class="scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-zinc-200/60 shadow-sm' : 'bg-transparent border-b border-transparent'"
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    >
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <nav class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="relative z-50">
+                    <span class="font-serif text-2xl tracking-tight" :class="scrolled || mobileOpen ? 'text-zinc-900' : 'text-white'">
+                        Fortis<span class="text-bronze-500">.</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="index.html" class="px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200"
+                       :class="scrolled ? 'text-bronze-600 bg-bronze-50' : 'text-white bg-white/10'"
+                       x-text="$store.i18n.t.nav.home"></a>
+                    <a href="catalog.html" class="px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200"
+                       :class="scrolled ? 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100' : 'text-white/70 hover:text-white hover:bg-white/10'"
+                       x-text="$store.i18n.t.nav.catalog"></a>
+                    <a href="about.html" class="px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200"
+                       :class="scrolled ? 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100' : 'text-white/70 hover:text-white hover:bg-white/10'"
+                       x-text="$store.i18n.t.nav.about"></a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200"
+                       :class="scrolled ? 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100' : 'text-white/70 hover:text-white hover:bg-white/10'"
+                       x-text="$store.i18n.t.nav.contact"></a>
+                </div>
+
+                <!-- Right side: Language + CTA -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    <div class="relative" x-data="{ langOpen: false }">
+                        <button
+                            @click="langOpen = !langOpen"
+                            @click.outside="langOpen = false"
+                            class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-full transition-colors duration-200"
+                            :class="scrolled ? 'text-zinc-600 hover:bg-zinc-100' : 'text-white/70 hover:bg-white/10'"
+                        >
+                            <i class="ph ph-globe text-base"></i>
+                            <span x-text="$store.i18n.locale.toUpperCase()"></span>
+                            <i class="ph ph-caret-down text-xs transition-transform duration-200" :class="langOpen && 'rotate-180'"></i>
+                        </button>
+                        <div
+                            x-show="langOpen"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-zinc-100 py-2 overflow-hidden"
+                        >
+                            <button @click="$store.i18n.setLocale('ru'); langOpen = false"
+                                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-zinc-50 transition-colors"
+                                    :class="$store.i18n.locale === 'ru' ? 'text-bronze-600 font-medium' : 'text-zinc-600'">
+                                <span>RU</span><span class="text-zinc-400">Russian</span>
+                            </button>
+                            <button @click="$store.i18n.setLocale('en'); langOpen = false"
+                                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-zinc-50 transition-colors"
+                                    :class="$store.i18n.locale === 'en' ? 'text-bronze-600 font-medium' : 'text-zinc-600'">
+                                <span>EN</span><span class="text-zinc-400">English</span>
+                            </button>
+                            <button @click="$store.i18n.setLocale('uz'); langOpen = false"
+                                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-zinc-50 transition-colors"
+                                    :class="$store.i18n.locale === 'uz' ? 'text-bronze-600 font-medium' : 'text-zinc-600'">
+                                <span>UZ</span><span class="text-zinc-400">Uzbek</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Phone Link -->
+                    <a href="tel:+998930468008" class="hidden lg:flex items-center gap-1.5 text-sm font-medium transition-colors" :class="scrolled ? 'text-zinc-600 hover:text-zinc-900' : 'text-white/70 hover:text-white'">
+                        <i class="ph ph-phone text-base"></i>
+                        <span>+998 93 046 80 08</span>
+                    </a>
+
+                    <!-- CTA Button -->
+                    <a href="contact.html"
+                       class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                        <span x-text="$store.i18n.t.nav.getQuote"></span>
+                        <i class="ph ph-arrow-right text-base"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button
+                    @click="mobileOpen = !mobileOpen"
+                    class="relative z-50 lg:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors"
+                    :class="scrolled || mobileOpen ? 'text-zinc-900' : 'text-white'"
+                    aria-label="Toggle menu"
+                >
+                    <i class="ph text-2xl" :class="mobileOpen ? 'ph-x' : 'ph-list'"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div
+            x-show="mobileOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-40 bg-white lg:hidden"
+        >
+            <div class="flex flex-col items-center justify-center h-full gap-6">
+                <a href="index.html" @click="mobileOpen = false" class="text-2xl font-serif text-bronze-600" x-text="$store.i18n.t.nav.home"></a>
+                <a href="catalog.html" @click="mobileOpen = false" class="text-2xl font-serif text-zinc-700 hover:text-bronze-600 transition-colors" x-text="$store.i18n.t.nav.catalog"></a>
+                <a href="about.html" @click="mobileOpen = false" class="text-2xl font-serif text-zinc-700 hover:text-bronze-600 transition-colors" x-text="$store.i18n.t.nav.about"></a>
+                <a href="contact.html" @click="mobileOpen = false" class="text-2xl font-serif text-zinc-700 hover:text-bronze-600 transition-colors" x-text="$store.i18n.t.nav.contact"></a>
+
+                <div class="flex items-center gap-4 mt-4">
+                    <button @click="$store.i18n.setLocale('ru')"
+                            class="px-4 py-2 text-sm font-medium rounded-full border transition-colors"
+                            :class="$store.i18n.locale === 'ru' ? 'bg-bronze-500 text-white border-bronze-500' : 'border-zinc-300 text-zinc-600'">
+                        RU
+                    </button>
+                    <button @click="$store.i18n.setLocale('en')"
+                            class="px-4 py-2 text-sm font-medium rounded-full border transition-colors"
+                            :class="$store.i18n.locale === 'en' ? 'bg-bronze-500 text-white border-bronze-500' : 'border-zinc-300 text-zinc-600'">
+                        EN
+                    </button>
+                    <button @click="$store.i18n.setLocale('uz')"
+                            class="px-4 py-2 text-sm font-medium rounded-full border transition-colors"
+                            :class="$store.i18n.locale === 'uz' ? 'bg-bronze-500 text-white border-bronze-500' : 'border-zinc-300 text-zinc-600'">
+                        UZ
+                    </button>
+                </div>
+
+                <a href="contact.html" @click="mobileOpen = false"
+                   class="mt-4 inline-flex items-center gap-2.5 bg-bronze-500 text-white px-8 py-4 rounded-full text-base font-medium transition-all duration-300 hover:bg-bronze-600">
+                    <span x-text="$store.i18n.t.nav.getQuote"></span>
+                    <i class="ph ph-arrow-right text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============================================== -->
+    <!-- HERO SECTION -->
+    <!-- ============================================== -->
+    <section class="relative min-h-screen flex items-end bg-zinc-950 overflow-hidden">
+        <!-- Background Video -->
+        <div class="absolute inset-0">
+            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                <source src="door1.mp4" type="video/mp4" />
+            </video>
+        </div>
+
+        <!-- Gradient Overlays -->
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-zinc-950/30"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-transparent"></div>
+
+        <!-- Grain Texture Overlay -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E'); background-repeat: repeat; background-size: 256px 256px;"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 w-full pb-16 md:pb-24 lg:pb-32 pt-32">
+            <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+                    <!-- Left Content -->
+                    <div class="lg:col-span-7">
+                        <!-- Label -->
+                        <div class="hero-animate mb-6">
+                            <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-400">
+                                <span class="w-8 h-px bg-bronze-500"></span>
+                                <span x-text="$store.i18n.t.hero.label"></span>
+                            </span>
+                        </div>
+
+                        <!-- Heading -->
+                        <h1 class="hero-animate font-serif text-4xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.95] text-white mb-6" style="animation-delay: 0.1s; text-wrap: balance;">
+                            <span x-text="$store.i18n.t.hero.heading1"></span>
+                            <br>
+                            <span class="text-bronze-400" x-text="$store.i18n.t.hero.heading2"></span>
+                        </h1>
+
+                        <!-- Description -->
+                        <p class="hero-animate text-lg md:text-xl text-zinc-400 leading-relaxed max-w-[55ch] mb-10" style="animation-delay: 0.2s;"
+                           x-text="$store.i18n.t.hero.description"></p>
+
+                        <!-- CTA Buttons -->
+                        <div class="hero-animate flex flex-wrap items-center gap-4" style="animation-delay: 0.3s;">
+                            <a href="catalog.html"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.hero.viewCollection"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                            <a href="contact.html"
+                               class="inline-flex items-center gap-2.5 text-white border border-white/20 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/10 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.hero.bookConsultation"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Stats -->
+                    <div class="lg:col-span-5">
+                        <div class="hero-animate grid grid-cols-2 gap-6" style="animation-delay: 0.4s;">
+                            <div class="border-l border-white/10 pl-6">
+                                <span class="block font-serif text-3xl md:text-4xl text-white mb-1" data-counter data-target="5000" data-suffix="+">0</span>
+                                <span class="text-sm text-zinc-500" x-text="$store.i18n.t.hero.doorsDelivered"></span>
+                            </div>
+                            <div class="border-l border-white/10 pl-6">
+                                <span class="block font-serif text-3xl md:text-4xl text-white mb-1"><span data-counter data-target="25">0</span><span class="text-bronze-500">yr</span></span>
+                                <span class="text-sm text-zinc-500" x-text="$store.i18n.t.hero.warranty"></span>
+                            </div>
+                            <div class="border-l border-white/10 pl-6">
+                                <span class="block font-serif text-3xl md:text-4xl text-white mb-1"><span data-counter data-target="12" data-suffix="+">0</span></span>
+                                <span class="text-sm text-zinc-500" x-text="$store.i18n.t.hero.countries"></span>
+                            </div>
+                            <div class="border-l border-white/10 pl-6">
+                                <span class="block font-serif text-3xl md:text-4xl text-white mb-1"><span data-counter data-target="98">0</span><span class="text-bronze-500">%</span></span>
+                                <span class="text-sm text-zinc-500" x-text="$store.i18n.t.hero.satisfaction"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Arrow -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+            <a href="#brand-story" class="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/40 hover:text-white/70 transition-colors">
+                <i class="ph ph-caret-down text-lg"></i>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- BRAND STORY SECTION -->
+    <!-- ============================================== -->
+    <section id="brand-story" class="py-24 md:py-32 lg:py-40 bg-white">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                <!-- Image -->
+                <div class="lg:col-span-7 scroll-reveal" data-delay="0">
+                    <div class="relative rounded-[2.5rem] overflow-hidden aspect-[4/3]">
+                        <img src="images/doors/about-doors.jpg" alt="Fortis Doors Craftsmanship" class="w-full h-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/40 to-transparent"></div>
+                        <!-- Badge -->
+                        <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md rounded-2xl px-5 py-3 shadow-lg">
+                            <span class="block text-xs font-medium uppercase tracking-[0.15em] text-bronze-600" x-text="$store.i18n.t.brand.established"></span>
+                            <span class="block text-sm text-zinc-600 mt-0.5" x-text="$store.i18n.t.brand.location"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="lg:col-span-5">
+                    <div class="scroll-reveal" data-delay="0.1">
+                        <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-4">
+                            <span class="w-8 h-px bg-bronze-500"></span>
+                            <span x-text="$store.i18n.t.brand.label"></span>
+                        </span>
+                    </div>
+
+                    <h2 class="scroll-reveal font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-zinc-900 mb-6" data-delay="0.15" style="text-wrap: balance;"
+                        x-text="$store.i18n.t.brand.heading"></h2>
+
+                    <p class="scroll-reveal text-base text-zinc-500 leading-relaxed mb-4" data-delay="0.2"
+                       x-text="$store.i18n.t.brand.p1"></p>
+
+                    <p class="scroll-reveal text-base text-zinc-500 leading-relaxed mb-10" data-delay="0.25"
+                       x-text="$store.i18n.t.brand.p2"></p>
+
+                    <!-- Stats Row -->
+                    <div class="scroll-reveal grid grid-cols-3 gap-6" data-delay="0.3">
+                        <div class="text-center">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-bronze-50 flex items-center justify-center">
+                                <i class="ph-duotone ph-star text-xl text-bronze-600"></i>
+                            </div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.brand.excellence"></span>
+                            <span class="block text-xs text-zinc-400 mt-1" x-text="$store.i18n.t.brand.excellenceDesc"></span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-bronze-50 flex items-center justify-center">
+                                <i class="ph-duotone ph-lightbulb text-xl text-bronze-600"></i>
+                            </div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.brand.innovation"></span>
+                            <span class="block text-xs text-zinc-400 mt-1" x-text="$store.i18n.t.brand.innovationDesc"></span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-bronze-50 flex items-center justify-center">
+                                <i class="ph-duotone ph-handshake text-xl text-bronze-600"></i>
+                            </div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.brand.integrity"></span>
+                            <span class="block text-xs text-zinc-400 mt-1" x-text="$store.i18n.t.brand.integrityDesc"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- COLLECTIONS SECTION -->
+    <!-- ============================================== -->
+    <section class="py-24 md:py-32 lg:py-40 bg-zinc-950">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Header Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+                <div class="scroll-reveal" data-delay="0">
+                    <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-4">
+                        <span class="w-8 h-px bg-bronze-500"></span>
+                        <span x-text="$store.i18n.t.collections.label"></span>
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-white" style="text-wrap: balance;"
+                        x-text="$store.i18n.t.collections.heading"></h2>
+                </div>
+                <div class="scroll-reveal flex items-end" data-delay="0.1">
+                    <p class="text-lg text-zinc-400 leading-relaxed max-w-[55ch]"
+                       x-text="$store.i18n.t.collections.description"></p>
+                </div>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <!-- Card 1: Komfort — spans 2 cols + 2 rows on lg -->
+                <a href="catalog.html?category=komfort"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden lg:col-span-2 lg:row-span-2 min-h-[320px] lg:min-h-[640px]"
+                   data-delay="0">
+                    <img src="images/doors/komfort-k1.jpg" alt="Komfort Doors"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-10">
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
+                              x-text="'7 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                        <h3 class="font-serif text-2xl md:text-3xl text-white mb-2"
+                            x-text="$store.i18n.t.collections.komfort"></h3>
+                        <p class="text-sm text-zinc-400 max-w-[40ch] mb-4"
+                           x-text="$store.i18n.t.collections.komfortDesc"></p>
+                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
+                            <span x-text="$store.i18n.t.collections.label"></span>
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 2: Modern -->
+                <a href="catalog.html?category=modern"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px]"
+                   data-delay="0.1">
+                    <img src="images/doors/modern-m1-black.jpg" alt="Modern Doors"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
+                              x-text="'12 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
+                            x-text="$store.i18n.t.collections.modern"></h3>
+                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                           x-text="$store.i18n.t.collections.modernDesc"></p>
+                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 3: Prestige -->
+                <a href="catalog.html?category=prestige"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px]"
+                   data-delay="0.15">
+                    <img src="images/doors/prestige-p3-walnut.jpg" alt="Prestige Doors"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
+                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
+                            x-text="$store.i18n.t.collections.prestige"></h3>
+                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                           x-text="$store.i18n.t.collections.prestigeDesc"></p>
+                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 4: Elite -->
+                <a href="catalog.html?category=elite"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px] md:col-span-1"
+                   data-delay="0.2">
+                    <img src="images/doors/elite-e2-cherry.jpg" alt="Elite Doors"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
+                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
+                            x-text="$store.i18n.t.collections.elite"></h3>
+                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                           x-text="$store.i18n.t.collections.eliteDesc"></p>
+                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 5: 120 Series -->
+                <a href="catalog.html?category=120"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px] md:col-span-2 lg:col-span-2"
+                   data-delay="0.25">
+                    <img src="images/doors/s120-elite3-brown.jpg" alt="120 Series Doors"
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
+                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
+                            x-text="$store.i18n.t.collections.s120"></h3>
+                        <p class="text-sm text-zinc-400 max-w-[40ch] mb-3"
+                           x-text="$store.i18n.t.collections.s120Desc"></p>
+                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
+                            <span x-text="$store.i18n.t.collections.label"></span>
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- FEATURES SECTION -->
+    <!-- ============================================== -->
+    <section class="py-24 md:py-32 lg:py-40 bg-white">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 scroll-reveal" data-delay="0">
+                <span class="inline-flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-4">
+                    <span class="w-8 h-px bg-bronze-500"></span>
+                    <span x-text="$store.i18n.t.features.label"></span>
+                    <span class="w-8 h-px bg-bronze-500"></span>
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-zinc-900" style="text-wrap: balance;"
+                    x-text="$store.i18n.t.features.heading"></h2>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature 1: Warranty -->
+                <div class="scroll-reveal feature-card bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0">
+                    <div class="feature-icon w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+                        <i class="ph-duotone ph-shield-check text-2xl text-bronze-600"></i>
+                    </div>
+                    <h3 class="font-serif text-xl md:text-2xl text-zinc-900 mb-3"
+                        x-text="$store.i18n.t.features.warranty"></h3>
+                    <p class="text-base text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.features.warrantyDesc"></p>
+                </div>
+
+                <!-- Feature 2: Sustainable -->
+                <div class="scroll-reveal feature-card bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0.1">
+                    <div class="feature-icon w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+                        <i class="ph-duotone ph-tree text-2xl text-bronze-600"></i>
+                    </div>
+                    <h3 class="font-serif text-xl md:text-2xl text-zinc-900 mb-3"
+                        x-text="$store.i18n.t.features.sustainable"></h3>
+                    <p class="text-base text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.features.sustainableDesc"></p>
+                </div>
+
+                <!-- Feature 3: Certified -->
+                <div class="scroll-reveal feature-card bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0.2">
+                    <div class="feature-icon w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+                        <i class="ph-duotone ph-certificate text-2xl text-bronze-600"></i>
+                    </div>
+                    <h3 class="font-serif text-xl md:text-2xl text-zinc-900 mb-3"
+                        x-text="$store.i18n.t.features.certified"></h3>
+                    <p class="text-base text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.features.certifiedDesc"></p>
+                </div>
+
+                <!-- Feature 4: Installation -->
+                <div class="scroll-reveal feature-card bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0.3">
+                    <div class="feature-icon w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+                        <i class="ph-duotone ph-wrench text-2xl text-bronze-600"></i>
+                    </div>
+                    <h3 class="font-serif text-xl md:text-2xl text-zinc-900 mb-3"
+                        x-text="$store.i18n.t.features.installation"></h3>
+                    <p class="text-base text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.features.installationDesc"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- ENGINEERING SECTION -->
+    <!-- ============================================== -->
+    <section class="py-24 md:py-32 lg:py-40 bg-zinc-950 overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Header -->
+            <div class="mb-16 md:mb-20 scroll-reveal" data-delay="0">
+                <span class="inline-flex items-center gap-4 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-6">
+                    <span x-text="$store.i18n.t.engineering.label"></span>
+                    <span class="w-16 h-px bg-bronze-500/30"></span>
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-white max-w-3xl" style="text-wrap: balance;">
+                    <span x-text="$store.i18n.t.engineering.heading"></span>
+                    <em class="text-bronze-400 italic" x-text="$store.i18n.t.engineering.headingHighlight"></em>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                <!-- Spec Cards -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Spec 01 -->
+                    <div class="scroll-reveal bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6" data-delay="0">
+                        <div class="flex items-start gap-4">
+                            <span class="text-sm font-medium text-bronze-500/60 font-mono">01</span>
+                            <div>
+                                <h4 class="text-white font-medium mb-1" x-text="$store.i18n.t.engineering.spec1Title"></h4>
+                                <p class="text-sm text-zinc-500 leading-relaxed" x-text="$store.i18n.t.engineering.spec1Desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Spec 02 -->
+                    <div class="scroll-reveal bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6" data-delay="0.1">
+                        <div class="flex items-start gap-4">
+                            <span class="text-sm font-medium text-bronze-500/60 font-mono">02</span>
+                            <div>
+                                <h4 class="text-white font-medium mb-1" x-text="$store.i18n.t.engineering.spec2Title"></h4>
+                                <p class="text-sm text-zinc-500 leading-relaxed" x-text="$store.i18n.t.engineering.spec2Desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Spec 03 -->
+                    <div class="scroll-reveal bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6" data-delay="0.2">
+                        <div class="flex items-start gap-4">
+                            <span class="text-sm font-medium text-bronze-500/60 font-mono">03</span>
+                            <div>
+                                <h4 class="text-white font-medium mb-1" x-text="$store.i18n.t.engineering.spec3Title"></h4>
+                                <p class="text-sm text-zinc-500 leading-relaxed" x-text="$store.i18n.t.engineering.spec3Desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Spec 04 -->
+                    <div class="scroll-reveal bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6" data-delay="0.3">
+                        <div class="flex items-start gap-4">
+                            <span class="text-sm font-medium text-bronze-500/60 font-mono">04</span>
+                            <div>
+                                <h4 class="text-white font-medium mb-1" x-text="$store.i18n.t.engineering.spec4Title"></h4>
+                                <p class="text-sm text-zinc-500 leading-relaxed" x-text="$store.i18n.t.engineering.spec4Desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cross Section Diagram -->
+                <div class="lg:col-span-7 scroll-reveal" data-delay="0.15">
+                    <div class="relative bg-white/[0.02] border border-white/[0.06] rounded-[2rem] p-8 md:p-12">
+                        <!-- Diagram Label -->
+                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-zinc-600 mb-8 block"
+                              x-text="$store.i18n.t.engineering.crossSection"></span>
+
+                        <!-- Horizontal Layer Stack -->
+                        <div class="space-y-2 mb-10">
+                            <!-- Layer 1: Exterior MDF -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-10 rounded-lg flex-shrink-0" style="width: 100%; max-width: 280px; background-color: #6B5A4E;"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.exteriorMdf"></span>
+                                    <span class="text-[10px] text-zinc-600">16 mm</span>
+                                </div>
+                            </div>
+                            <!-- Layer 2: Steel -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-3 rounded-sm flex-shrink-0" style="width: 100%; max-width: 280px; background-color: #8A7D72;"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.steel">Steel 1.5mm</span>
+                                    <span class="text-[10px] text-zinc-600">1.5 mm</span>
+                                </div>
+                            </div>
+                            <!-- Layer 3: Seal -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-4 rounded-sm flex-shrink-0" style="width: 100%; max-width: 280px; background: repeating-linear-gradient(90deg, #8A7D72 0px, #8A7D72 8px, transparent 8px, transparent 12px);"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.seal"></span>
+                                    <span class="text-[10px] text-zinc-600">3x</span>
+                                </div>
+                            </div>
+                            <!-- Layer 4: Insulation -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-16 rounded-lg flex-shrink-0" style="width: 100%; max-width: 280px; background: linear-gradient(135deg, #C4A882 0%, #D4B892 50%, #C4A882 100%);"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.insulation"></span>
+                                    <span class="text-[10px] text-zinc-600">60 mm</span>
+                                </div>
+                            </div>
+                            <!-- Layer 5: Steel -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-3 rounded-sm flex-shrink-0" style="width: 100%; max-width: 280px; background-color: #8A7D72;"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.steel">Steel 1.5mm</span>
+                                    <span class="text-[10px] text-zinc-600">1.5 mm</span>
+                                </div>
+                            </div>
+                            <!-- Layer 6: Interior MDF -->
+                            <div class="flex items-center gap-4">
+                                <div class="h-10 rounded-lg flex-shrink-0" style="width: 100%; max-width: 280px; background-color: #B8A48E;"></div>
+                                <div class="flex-shrink-0">
+                                    <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.engineering.interiorMdf"></span>
+                                    <span class="text-[10px] text-zinc-600">16 mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Depth -->
+                        <div class="flex items-center gap-3 mb-8 pb-8 border-b border-white/[0.06]">
+                            <span class="text-xs text-zinc-600 uppercase tracking-wider" x-text="$store.i18n.t.engineering.totalDepth"></span>
+                        </div>
+
+                        <!-- Stats Row -->
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <span class="block text-2xl font-serif text-white">U 0.8</span>
+                                <span class="block text-xs text-zinc-500 mt-1">W/m²K</span>
+                            </div>
+                            <div class="text-center border-l border-r border-white/[0.06]">
+                                <span class="block text-2xl font-serif text-white">42 dB</span>
+                                <span class="block text-xs text-zinc-500 mt-1" x-text="$store.i18n.t.engineering.soundInsulation"></span>
+                            </div>
+                            <div class="text-center">
+                                <span class="block text-2xl font-serif text-white">RC3</span>
+                                <span class="block text-xs text-zinc-500 mt-1" x-text="$store.i18n.t.engineering.burglarResistance"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- PROCESS SECTION -->
+    <!-- ============================================== -->
+    <section class="py-24 md:py-32 lg:py-40 bg-amber-50/50">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Header -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16 md:mb-20">
+                <div class="scroll-reveal" data-delay="0">
+                    <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-4">
+                        <span class="w-8 h-px bg-bronze-500"></span>
+                        <span x-text="$store.i18n.t.process.label"></span>
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-zinc-900" style="text-wrap: balance;"
+                        x-text="$store.i18n.t.process.heading"></h2>
+                </div>
+                <div class="scroll-reveal flex items-end" data-delay="0.1">
+                    <p class="text-lg text-zinc-500 leading-relaxed max-w-[55ch]"
+                       x-text="$store.i18n.t.process.description"></p>
+                </div>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+                <!-- Connecting Line (desktop only) -->
+                <div class="hidden lg:block absolute top-[3.25rem] left-[12%] right-[12%] h-px bg-bronze-200/60"></div>
+
+                <!-- Step 1: Consultation -->
+                <div class="scroll-reveal relative" data-delay="0">
+                    <div class="relative z-10 flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-white shadow-sm border border-zinc-100 flex items-center justify-center">
+                            <i class="ph-duotone ph-chat-circle-dots text-2xl text-bronze-600"></i>
+                        </div>
+                        <span class="text-xs font-medium text-bronze-400 font-mono">01</span>
+                    </div>
+                    <h3 class="font-serif text-lg text-zinc-900 mb-2"
+                        x-text="$store.i18n.t.process.step1Title"></h3>
+                    <p class="text-sm text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.process.step1Desc"></p>
+                </div>
+
+                <!-- Step 2: Design -->
+                <div class="scroll-reveal relative" data-delay="0.1">
+                    <div class="relative z-10 flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-white shadow-sm border border-zinc-100 flex items-center justify-center">
+                            <i class="ph-duotone ph-pencil-ruler text-2xl text-bronze-600"></i>
+                        </div>
+                        <span class="text-xs font-medium text-bronze-400 font-mono">02</span>
+                    </div>
+                    <h3 class="font-serif text-lg text-zinc-900 mb-2"
+                        x-text="$store.i18n.t.process.step2Title"></h3>
+                    <p class="text-sm text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.process.step2Desc"></p>
+                </div>
+
+                <!-- Step 3: Production -->
+                <div class="scroll-reveal relative" data-delay="0.2">
+                    <div class="relative z-10 flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-white shadow-sm border border-zinc-100 flex items-center justify-center">
+                            <i class="ph-duotone ph-hammer text-2xl text-bronze-600"></i>
+                        </div>
+                        <span class="text-xs font-medium text-bronze-400 font-mono">03</span>
+                    </div>
+                    <h3 class="font-serif text-lg text-zinc-900 mb-2"
+                        x-text="$store.i18n.t.process.step3Title"></h3>
+                    <p class="text-sm text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.process.step3Desc"></p>
+                </div>
+
+                <!-- Step 4: Delivery -->
+                <div class="scroll-reveal relative" data-delay="0.3">
+                    <div class="relative z-10 flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-white shadow-sm border border-zinc-100 flex items-center justify-center">
+                            <i class="ph-duotone ph-package text-2xl text-bronze-600"></i>
+                        </div>
+                        <span class="text-xs font-medium text-bronze-400 font-mono">04</span>
+                    </div>
+                    <h3 class="font-serif text-lg text-zinc-900 mb-2"
+                        x-text="$store.i18n.t.process.step4Title"></h3>
+                    <p class="text-sm text-zinc-500 leading-relaxed"
+                       x-text="$store.i18n.t.process.step4Desc"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- TESTIMONIALS SECTION -->
+    <!-- ============================================== -->
+    <section class="py-24 md:py-32 lg:py-40 bg-white">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 scroll-reveal" data-delay="0">
+                <span class="inline-flex items-center justify-center gap-2 text-xs font-medium uppercase tracking-[0.15em] text-bronze-500 mb-4">
+                    <span class="w-8 h-px bg-bronze-500"></span>
+                    <span x-text="$store.i18n.t.testimonials.label"></span>
+                    <span class="w-8 h-px bg-bronze-500"></span>
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-zinc-900" style="text-wrap: balance;"
+                    x-text="$store.i18n.t.testimonials.heading"></h2>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="space-y-6">
+                <!-- Featured Testimonial -->
+                <div class="scroll-reveal bg-white rounded-[2.5rem] p-10 md:p-14 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0">
+                    <i class="ph-fill ph-quotes text-3xl text-bronze-500/30 mb-6 block"></i>
+                    <blockquote class="font-serif text-xl md:text-2xl text-zinc-900 leading-relaxed mb-8" x-text="$store.i18n.t.testimonials.t1Quote"></blockquote>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-bronze-100 flex items-center justify-center font-serif text-bronze-600 text-lg" x-text="$store.i18n.t.testimonials.t1Author.charAt(0)"></div>
+                        <div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.testimonials.t1Author"></span>
+                            <span class="block text-xs text-zinc-500" x-text="$store.i18n.t.testimonials.t1Role"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Two Smaller -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="scroll-reveal bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0.1">
+                        <i class="ph-fill ph-quotes text-xl text-bronze-500/30 mb-4 block"></i>
+                        <blockquote class="text-base text-zinc-600 leading-relaxed mb-6" x-text="$store.i18n.t.testimonials.t2Quote"></blockquote>
+                        <div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.testimonials.t2Author"></span>
+                            <span class="block text-xs text-zinc-500" x-text="$store.i18n.t.testimonials.t2Role"></span>
+                        </div>
+                    </div>
+                    <div class="scroll-reveal bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100" data-delay="0.2">
+                        <i class="ph-fill ph-quotes text-xl text-bronze-500/30 mb-4 block"></i>
+                        <blockquote class="text-base text-zinc-600 leading-relaxed mb-6" x-text="$store.i18n.t.testimonials.t3Quote"></blockquote>
+                        <div>
+                            <span class="block text-sm font-medium text-zinc-900" x-text="$store.i18n.t.testimonials.t3Author"></span>
+                            <span class="block text-xs text-zinc-500" x-text="$store.i18n.t.testimonials.t3Role"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- CALL TO ACTION SECTION -->
+    <!-- ============================================== -->
+    <section class="py-16 md:py-24">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <div class="relative bg-zinc-950 rounded-[2.5rem] overflow-hidden px-8 md:px-16 py-16 md:py-20">
+                <!-- Grain Overlay -->
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E'); background-repeat: repeat; background-size: 256px 256px;"></div>
+
+                <!-- Bronze Blur Circle -->
+                <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-bronze-500/10 blur-[120px]"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <!-- Text -->
+                    <div class="scroll-reveal" data-delay="0">
+                        <h2 class="font-serif text-3xl md:text-4xl lg:text-5xl tracking-tight leading-[1.05] text-white mb-4" style="text-wrap: balance;"
+                            x-text="$store.i18n.t.cta.heading"></h2>
+                        <p class="text-lg text-zinc-400 leading-relaxed max-w-[50ch]"
+                           x-text="$store.i18n.t.cta.description"></p>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="scroll-reveal flex flex-wrap items-center gap-4 lg:justify-end" data-delay="0.1">
+                        <a href="catalog.html"
+                           class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                            <span x-text="$store.i18n.t.cta.browseCatalog"></span>
+                            <i class="ph ph-arrow-right text-base"></i>
+                        </a>
+                        <a href="contact.html"
+                           class="inline-flex items-center gap-2.5 text-white border border-white/20 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/10 active:translate-y-[1px]">
+                            <span x-text="$store.i18n.t.cta.contactUs"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- FOOTER -->
+    <!-- ============================================== -->
+    <footer class="bg-zinc-950 pt-20 pb-8">
+        <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+            <!-- Footer Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                <!-- Column 1: Brand -->
+                <div>
+                    <a href="index.html" class="inline-block mb-6">
+                        <span class="font-serif text-2xl tracking-tight text-white">
+                            Fortis<span class="text-bronze-500">.</span>
+                        </span>
+                    </a>
+                    <p class="text-sm text-zinc-500 leading-relaxed mb-6 max-w-[28ch]"
+                       x-text="$store.i18n.t.footer.description"></p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-3">
+                        <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 hover:bg-bronze-500/20 flex items-center justify-center text-zinc-400 hover:text-bronze-400 transition-all duration-300" aria-label="WhatsApp">
+                            <i class="ph ph-whatsapp-logo text-lg"></i>
+                        </a>
+                        <a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 hover:bg-bronze-500/20 flex items-center justify-center text-zinc-400 hover:text-bronze-400 transition-all duration-300" aria-label="Telegram">
+                            <i class="ph ph-telegram-logo text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation -->
+                <div>
+                    <h4 class="text-sm font-medium text-white mb-6" x-text="$store.i18n.t.footer.navigation"></h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.nav.home"></a></li>
+                        <li><a href="catalog.html" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.nav.catalog"></a></li>
+                        <li><a href="about.html" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.nav.about"></a></li>
+                        <li><a href="contact.html" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.nav.contact"></a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Collections -->
+                <div>
+                    <h4 class="text-sm font-medium text-white mb-6" x-text="$store.i18n.t.footer.collectionsTitle"></h4>
+                    <ul class="space-y-3">
+                        <li><a href="catalog.html?category=komfort" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.footer.komfortDoors">Komfort</a></li>
+                        <li><a href="catalog.html?category=modern" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.footer.modernDoors">Modern</a></li>
+                        <li><a href="catalog.html?category=prestige" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.footer.prestigeDoors">Prestige</a></li>
+                        <li><a href="catalog.html?category=elite" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.footer.eliteDoors">Elite</a></li>
+                        <li><a href="catalog.html?category=120" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors" x-text="$store.i18n.t.footer.s120Doors">120 Series</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="text-sm font-medium text-white mb-6" x-text="$store.i18n.t.footer.contactTitle"></h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="ph ph-map-pin text-bronze-500 text-lg mt-0.5"></i>
+                            <span class="text-sm text-zinc-500">Янгиюль, Узбекистан</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph ph-phone text-bronze-500 text-lg"></i>
+                            <a href="tel:+998930468008" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors">+998 93 046 80 08</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph ph-envelope-simple text-bronze-500 text-lg"></i>
+                            <a href="mailto:asadik4444@gmail.com" class="text-sm text-zinc-500 hover:text-bronze-400 transition-colors">asadik4444@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/[0.06] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-zinc-600">
+                    &copy; <span x-text="new Date().getFullYear()"></span>
+                    <span x-text="$store.i18n.t.footer.copyright"></span>
+                </p>
+                <p class="text-xs text-zinc-600 flex items-center gap-2">
+                    <i class="ph ph-clock text-sm"></i>
+                    <span x-text="$store.i18n.t.footer.hours"></span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
+        <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+    </a>
+
+</body>
+</html>

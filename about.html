@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru" x-data dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Fortis Doors</title>
+  <meta name="description" content="Learn about Fortis Doors — our story, our values, and our commitment to crafting premium doors that define spaces." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bronze: {
+              50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
+              400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
+              800: '#523A26', 900: '#3A2919', 950: '#1F160D',
+            },
+          },
+          fontFamily: {
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            sans: ['Outfit', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+  <!-- Custom Styles & Scripts -->
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+
+  <style>[x-cloak] { display: none !important; }</style>
+</head>
+<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased">
+
+  <!-- ========== HEADER ========== -->
+  <header
+    x-data="headerComponent()"
+    @scroll.window="onScroll()"
+    :class="scrolled ? 'bg-[#FAF9F7]/90 backdrop-blur-md border-b border-zinc-100 py-4' : 'bg-[#FAF9F7] py-6 border-b border-zinc-100/50'"
+    class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+  >
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="index.html" class="font-serif text-2xl text-zinc-950">
+          Fortis<span class="text-bronze-500">.</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-8">
+          <a href="index.html" class="text-zinc-600 hover:text-zinc-950 text-sm font-medium transition-colors" x-text="$store.i18n.t.nav.home">Home</a>
+          <a href="catalog.html" class="text-zinc-600 hover:text-zinc-950 text-sm font-medium transition-colors" x-text="$store.i18n.t.nav.catalog">Catalog</a>
+          <a href="about.html" class="text-zinc-950 text-sm font-medium transition-colors" x-text="$store.i18n.t.nav.about">About</a>
+          <a href="contact.html" class="text-zinc-600 hover:text-zinc-950 text-sm font-medium transition-colors" x-text="$store.i18n.t.nav.contact">Contact</a>
+        </nav>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-4">
+          <!-- Language Switcher -->
+          <div class="relative" x-data="{ open: false }">
+            <button
+              @click="open = !open"
+              class="flex items-center gap-1.5 text-sm text-zinc-600 hover:text-zinc-950 transition-colors font-medium"
+            >
+              <i class="ph-bold ph-globe text-base"></i>
+              <span x-text="$store.i18n.locale.toUpperCase()"></span>
+              <i class="ph-bold ph-arrow-down text-xs transition-transform" :class="open && 'rotate-180'"></i>
+            </button>
+            <div
+              x-show="open"
+              @click.outside="open = false"
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0 translate-y-1"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              x-transition:leave="transition ease-in duration-150"
+              x-transition:leave-start="opacity-100 translate-y-0"
+              x-transition:leave-end="opacity-0 translate-y-1"
+              class="absolute right-0 mt-3 w-36 bg-white rounded-2xl shadow-lg border border-zinc-100 py-2 overflow-hidden"
+            >
+              <button @click="$store.i18n.setLocale('en'); open = false" class="block w-full text-left px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 transition-colors">English</button>
+              <button @click="$store.i18n.setLocale('ru'); open = false" class="block w-full text-left px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 transition-colors">Русский</button>
+              <button @click="$store.i18n.setLocale('uz'); open = false" class="block w-full text-left px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 transition-colors">O'zbek</button>
+            </div>
+          </div>
+
+          <!-- Phone Number -->
+          <a href="tel:+998930468008" class="hidden lg:flex items-center gap-1.5 text-zinc-600 hover:text-zinc-950 text-sm font-medium transition-colors">
+            <i class="ph ph-phone text-base"></i>
+            <span>+998 93 046 80 08</span>
+          </a>
+
+          <!-- Get a Quote -->
+          <a href="contact.html" class="hidden md:inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+            <span x-text="$store.i18n.t.nav.getQuote">Get a Quote</span>
+          </a>
+
+          <!-- Mobile Menu Toggle -->
+          <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-zinc-700 hover:text-zinc-950 transition-colors" aria-label="Toggle menu">
+            <i class="ph-bold ph-list text-2xl" x-show="!mobileOpen"></i>
+            <i class="ph-bold ph-x text-2xl" x-show="mobileOpen" x-cloak></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        x-show="mobileOpen"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 -translate-y-4"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-4"
+        class="lg:hidden pt-6 pb-4 border-t border-zinc-100 mt-4"
+        x-cloak
+      >
+        <nav class="flex flex-col gap-4">
+          <a href="index.html" class="text-zinc-600 hover:text-zinc-950 text-base font-medium transition-colors" x-text="$store.i18n.t.nav.home">Home</a>
+          <a href="catalog.html" class="text-zinc-600 hover:text-zinc-950 text-base font-medium transition-colors" x-text="$store.i18n.t.nav.catalog">Catalog</a>
+          <a href="about.html" class="text-zinc-950 text-base font-medium transition-colors" x-text="$store.i18n.t.nav.about">About</a>
+          <a href="contact.html" class="text-zinc-600 hover:text-zinc-950 text-base font-medium transition-colors" x-text="$store.i18n.t.nav.contact">Contact</a>
+          <a href="contact.html" class="inline-flex items-center justify-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px] mt-2">
+            <span x-text="$store.i18n.t.nav.getQuote">Get a Quote</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="pt-36 pb-16 md:pt-44 md:pb-20">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end">
+        <div class="lg:col-span-6 scroll-reveal">
+          <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-500" x-text="$store.i18n.t.about.label">About Fortis</span>
+          <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.95] mt-4 text-zinc-950" style="text-wrap: balance" x-text="$store.i18n.t.about.heading">Crafting Doors, Building Legacy</h1>
+        </div>
+        <div class="lg:col-span-6 scroll-reveal" data-delay="0.1">
+          <p class="text-lg md:text-xl text-zinc-500 leading-relaxed max-w-[65ch]" x-text="$store.i18n.t.about.description">We believe that a door is more than a passage — it's the first impression, the silent guardian, and a reflection of the space it protects. At Fortis, we pour craftsmanship into every detail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WORKSHOP IMAGE ========== -->
+  <section class="pb-24 md:pb-32">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div class="relative rounded-[2.5rem] overflow-hidden scroll-reveal" data-delay="0.15">
+        <div class="aspect-[21/9]">
+          <img
+            src="images/doors/custom-solutions.jpg"
+            alt="Fortis Doors workshop"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-zinc-950/40 to-transparent"></div>
+        <!-- Stats Overlay -->
+        <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+          <span class="font-serif text-5xl md:text-7xl text-white tracking-tight" x-text="$store.i18n.t.about.doorsCount">5,000+</span>
+          <p class="text-zinc-300 text-sm md:text-base mt-2" x-text="$store.i18n.t.about.doorsCrafted">doors crafted with precision</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALUES ========== -->
+  <section class="py-24 md:py-32 lg:py-40 bg-bronze-50/50">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <!-- Section Header -->
+      <div class="text-center mb-16 md:mb-20 scroll-reveal">
+        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-500" x-text="$store.i18n.t.about.valuesLabel">What We Stand For</span>
+        <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] mt-4 text-zinc-950" style="text-wrap: balance" x-text="$store.i18n.t.about.valuesHeading">Our Core Values</h2>
+      </div>
+
+      <!-- Values Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Excellence -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0">
+          <div class="w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+            <i class="ph-duotone ph-shield-check text-2xl text-bronze-500"></i>
+          </div>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mb-3" x-text="$store.i18n.t.about.excellence">Excellence</h3>
+          <p class="text-base text-zinc-500 leading-relaxed" x-text="$store.i18n.t.about.excellenceDesc">Every door we craft meets the highest standards of quality. We never compromise on materials, construction, or finish.</p>
+        </div>
+
+        <!-- Innovation -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0.1">
+          <div class="w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6">
+            <i class="ph-duotone ph-lightbulb text-2xl text-bronze-500"></i>
+          </div>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mb-3" x-text="$store.i18n.t.about.innovation">Innovation</h3>
+          <p class="text-base text-zinc-500 leading-relaxed" x-text="$store.i18n.t.about.innovationDesc">We blend traditional craftsmanship with modern technology. Our designs push boundaries while respecting timeless aesthetics.</p>
+        </div>
+
+        <!-- Integrity -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 md:col-span-2 md:flex md:items-center md:gap-8 scroll-reveal" data-delay="0.2">
+          <div class="w-14 h-14 rounded-2xl bg-bronze-50 flex items-center justify-center mb-6 md:mb-0 shrink-0">
+            <i class="ph-duotone ph-handshake text-2xl text-bronze-500"></i>
+          </div>
+          <div>
+            <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mb-3" x-text="$store.i18n.t.about.integrity">Integrity</h3>
+            <p class="text-base text-zinc-500 leading-relaxed" x-text="$store.i18n.t.about.integrityDesc">Transparent pricing, honest timelines, and genuine relationships. We build trust the same way we build doors — with care.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOURNEY / MILESTONES ========== -->
+  <section class="py-24 md:py-32 lg:py-40">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <!-- Section Header -->
+      <div class="max-w-2xl mb-16 md:mb-20 scroll-reveal">
+        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-500" x-text="$store.i18n.t.about.journeyLabel">Our Story</span>
+        <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] mt-4 text-zinc-950" style="text-wrap: balance" x-text="$store.i18n.t.about.journeyHeading">The Fortis Journey</h2>
+      </div>
+
+      <!-- Milestones Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Milestone 1 -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0">
+          <span class="font-serif text-5xl md:text-6xl text-bronze-500/20 tracking-tighter leading-none" x-text="$store.i18n.t.about.m1Year">2024</span>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mt-4 mb-3" x-text="$store.i18n.t.about.m1Title">Founded with Purpose</h3>
+          <p class="text-base text-zinc-500 leading-relaxed max-w-[65ch]" x-text="$store.i18n.t.about.m1Desc">Fortis Doors was born from a simple belief: that every space deserves a door worthy of what lies behind it. We opened our first workshop in Tashkent.</p>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0.1">
+          <span class="font-serif text-5xl md:text-6xl text-bronze-500/20 tracking-tighter leading-none" x-text="$store.i18n.t.about.m2Year">2024</span>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mt-4 mb-3" x-text="$store.i18n.t.about.m2Title">First 500 Doors</h3>
+          <p class="text-base text-zinc-500 leading-relaxed max-w-[65ch]" x-text="$store.i18n.t.about.m2Desc">Within our first year, we delivered over 500 premium doors to residential and commercial clients across the region, earning trust through quality.</p>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0.2">
+          <span class="font-serif text-5xl md:text-6xl text-bronze-500/20 tracking-tighter leading-none" x-text="$store.i18n.t.about.m3Year">2025</span>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mt-4 mb-3" x-text="$store.i18n.t.about.m3Title">International Expansion</h3>
+          <p class="text-base text-zinc-500 leading-relaxed max-w-[65ch]" x-text="$store.i18n.t.about.m3Desc">Our reputation for excellence opened doors — literally — to international markets. We began exporting premium doors to neighboring countries.</p>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_40px_-15px_rgba(166,124,82,0.06)] border border-zinc-100 scroll-reveal" data-delay="0.3">
+          <span class="font-serif text-5xl md:text-6xl text-bronze-500/20 tracking-tighter leading-none" x-text="$store.i18n.t.about.m4Year">2025</span>
+          <h3 class="font-serif text-2xl md:text-3xl tracking-tight text-zinc-950 mt-4 mb-3" x-text="$store.i18n.t.about.m4Title">Custom Design Division</h3>
+          <p class="text-base text-zinc-500 leading-relaxed max-w-[65ch]" x-text="$store.i18n.t.about.m4Desc">We launched a dedicated custom design division, allowing clients to collaborate with our craftsmen on bespoke doors tailored to their exact vision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CALL TO ACTION ========== -->
+  <section class="py-24 md:py-32 lg:py-40">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div class="bg-zinc-950 rounded-[2.5rem] md:rounded-[3rem] p-10 md:p-16 lg:p-20 text-center relative overflow-hidden scroll-reveal">
+        <!-- Decorative gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-bronze-500/10 via-transparent to-bronze-500/5 pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-white mt-4 mb-6" style="text-wrap: balance" x-text="$store.i18n.t.cta.heading">Ready to Transform Your Space?</h2>
+          <p class="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-[65ch] mx-auto mb-10" x-text="$store.i18n.t.cta.description">Whether you need a single statement door or an entire collection, our team is ready to bring your vision to life.</p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="contact.html" class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+              <span x-text="$store.i18n.t.cta.contactUs">Contact Us</span>
+              <i class="ph-bold ph-arrow-right"></i>
+            </a>
+            <a href="catalog.html" class="inline-flex items-center gap-2.5 text-zinc-400 hover:text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 border border-zinc-800 hover:border-zinc-700">
+              <span x-text="$store.i18n.t.cta.browseCatalog">Browse Catalog</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-zinc-950 text-white">
+    <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12 py-20 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
+        <!-- Col 1: Brand -->
+        <div class="lg:col-span-1">
+          <a href="index.html" class="font-serif text-2xl text-white">
+            Fortis<span class="text-bronze-500">.</span>
+          </a>
+          <p class="text-zinc-400 text-sm leading-relaxed mt-4 max-w-xs" x-text="$store.i18n.t.footer.description">Premium doors crafted with precision and passion. Defining spaces since 2024.</p>
+          <div class="flex items-center gap-3 mt-6">
+            <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-all duration-300" aria-label="WhatsApp">
+              <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+            </a>
+            <a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-all duration-300" aria-label="Telegram">
+              <i class="ph-fill ph-telegram-logo text-lg"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-zinc-300 mb-5" x-text="$store.i18n.t.footer.navigation">Navigation</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.nav.home">Home</a></li>
+            <li><a href="catalog.html" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.nav.catalog">Catalog</a></li>
+            <li><a href="about.html" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.nav.about">About</a></li>
+            <li><a href="contact.html" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.nav.contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Collections -->
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-zinc-300 mb-5" x-text="$store.i18n.t.footer.collectionsTitle">Collections</h4>
+          <ul class="space-y-3">
+            <li><a href="catalog.html?category=komfort" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.footer.komfortDoors">Komfort</a></li>
+            <li><a href="catalog.html?category=modern" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.footer.modernDoors">Modern</a></li>
+            <li><a href="catalog.html?category=prestige" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.footer.prestigeDoors">Prestige</a></li>
+            <li><a href="catalog.html?category=elite" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.footer.eliteDoors">Elite</a></li>
+            <li><a href="catalog.html?category=120" class="text-zinc-400 hover:text-white text-sm transition-colors" x-text="$store.i18n.t.footer.s120Doors">120 Series</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact -->
+        <div>
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-zinc-300 mb-5" x-text="$store.i18n.t.footer.contactTitle">Contact</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <i class="ph-fill ph-map-pin text-bronze-500 text-lg mt-0.5 shrink-0"></i>
+              <span class="text-zinc-400 text-sm">Tashkent, Uzbekistan</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-fill ph-phone text-bronze-500 text-lg mt-0.5 shrink-0"></i>
+              <a href="tel:+998930468008" class="text-zinc-400 hover:text-white text-sm transition-colors">+998 93 046 80 08</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="ph-fill ph-envelope-simple text-bronze-500 text-lg mt-0.5 shrink-0"></i>
+              <a href="mailto:asadik4444@gmail.com" class="text-zinc-400 hover:text-white text-sm transition-colors">asadik4444@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-zinc-800/50">
+      <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-zinc-500 text-sm">&copy; <span x-text="new Date().getFullYear()">2026</span> <span x-text="$store.i18n.t.footer.copyright">Fortis Doors. All rights reserved.</span></p>
+        <p class="text-zinc-500 text-sm flex items-center gap-2">
+          <i class="ph-fill ph-clock text-bronze-500"></i>
+          <span x-text="$store.i18n.t.footer.hours">Mon — Sat: 9:00 — 18:00</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
+  <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+</a>
+
+</body>
+</html>
