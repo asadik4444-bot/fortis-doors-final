@@ -95,7 +95,8 @@ const translations = {
       infoTitle: "Contact Information", infoDesc: "Reach out through any channel that suits you.",
       visitUs: "Visit Us", callUs: "Call Us", emailUs: "Email Us",
       businessHours: "Business Hours", hoursValue: "Mon — Sat: 9:00 — 18:00",
-      whatsapp: "Chat on WhatsApp"
+      whatsapp: "Chat on WhatsApp",
+      addressValue: "Republic of Uzbekistan, Tashkent Region, Yangiyo'l District, Navruz mahalla, Samarkand street, 215"
     },
     contactForm: {
       fullName: "Full Name", email: "Email", phone: "Phone", subject: "Subject", message: "Message",
@@ -247,7 +248,7 @@ const translations = {
     },
     catalog: {
       label: "Наша коллекция", heading: "Полный каталог дверей",
-      description: "46 моделей в пяти сериях. Стальные входные двери производства Узбекистан.",
+      description: "46 моделей в пяти сериях. Стальные входные двери узбекского производства.",
       allDoors: "Все двери", komfort: "Комфорт", modern: "Модерн", prestige: "Престиж",
       elite: "Элит", s120: "120 Серия", emptyState: "В этой категории пока нет товаров."
     },
@@ -270,7 +271,8 @@ const translations = {
       infoTitle: "Контактная информация", infoDesc: "Свяжитесь с нами удобным для вас способом.",
       visitUs: "Адрес", callUs: "Телефон", emailUs: "Email",
       businessHours: "Часы работы", hoursValue: "Пн — Сб: 9:00 — 18:00",
-      whatsapp: "Написать в WhatsApp"
+      whatsapp: "Написать в WhatsApp",
+      addressValue: "Республика Узбекистан, Ташкентская область, Янгиюльский район, махалля Навруз, улица Самарканд, дом 215"
     },
     contactForm: {
       fullName: "Имя", email: "Email", phone: "Телефон", subject: "Тема", message: "Сообщение",
@@ -445,7 +447,8 @@ const translations = {
       infoTitle: "Aloqa ma'lumotlari", infoDesc: "Siz uchun qulay usulda biz bilan bog'laning.",
       visitUs: "Manzil", callUs: "Telefon", emailUs: "Email",
       businessHours: "Ish soatlari", hoursValue: "Du — Sha: 9:00 — 18:00",
-      whatsapp: "WhatsApp orqali yozish"
+      whatsapp: "WhatsApp orqali yozish",
+      addressValue: "O'zbekiston Respublikasi, Toshkent viloyati, Yangiyo'l tumani, Navro'z mahallasi, Samarqand ko'chasi, 215-uy"
     },
     contactForm: {
       fullName: "Ism", email: "Email", phone: "Telefon", subject: "Mavzu", message: "Xabar",

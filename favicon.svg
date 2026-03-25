@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fortis geometric F logo with dot -->
   <rect width="64" height="64" rx="8" fill="#2C2C2C"/>
-  <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia, serif" font-size="38" font-weight="700" fill="#FAF8F5">F</text>
+  <g fill="#FAF8F5">
+    <!-- Main F body with rounded bottom-left -->
+    <path d="M12 8h28a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H28v8h12a4 4 0 0 1 4 4v4H28v12a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z"/>
+    <!-- Dot -->
+    <circle cx="44" cy="40" r="5"/>
+  </g>
 </svg>
