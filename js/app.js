@@ -450,14 +450,16 @@ document.addEventListener("DOMContentLoaded", () => {
           const suffix = el.dataset.suffix || "";
           const prefix = el.dataset.prefix || "";
           const num = parseInt(target, 10);
-          const duration = 2000;
+          const duration = 1200;
+          const startFrom = Math.round(num * 0.8);
+          const range = num - startFrom;
           const start = performance.now();
-          const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+          const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
           const animate = (now) => {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            const value = Math.round(easeOut(progress) * num);
+            const value = Math.round(startFrom + easeOut(progress) * range);
             el.textContent = prefix + value.toLocaleString() + suffix;
             if (progress < 1) requestAnimationFrame(animate);
           };

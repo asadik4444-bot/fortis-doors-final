@@ -1,6 +1,6 @@
 const translations = {
   en: {
-    nav: { home: "Home", catalog: "Catalog", about: "About", contact: "Contact", getQuote: "Contact Us", phone: "Call Us" },
+    nav: { home: "Home", catalog: "Catalogue", about: "About", contact: "Contact", getQuote: "Contact Us", phone: "Call Us" },
     hero: {
       label: "Steel Door Manufacturing",
       heading1: "Comprehensive", heading2: "Door Solutions",
@@ -62,7 +62,7 @@ const translations = {
       t3Quote: "We promptly resolve warranty and service issues. No need to wait for factory responses from China — everything is handled quickly and directly.",
       t3Author: "Service Support", t3Role: "Fast resolution", t3Location: "direct from factory"
     },
-    cta: { heading: "Ready to Become a Partner?", description: "Contact us for dealer pricing, catalog, and partnership terms. Fast delivery from our factory in Uzbekistan.", browseCatalog: "View Catalog", contactUs: "Contact Us" },
+    cta: { heading: "Ready to Become a Partner?", description: "Contact us for dealer pricing, catalogue, and partnership terms. Fast delivery from our factory in Uzbekistan.", browseCatalog: "View Catalogue", contactUs: "Contact Us" },
     footer: {
       description: "Steel entry door manufacturer. Yangiyo'l, Uzbekistan. Production capacity up to 10,000 doors/month.",
       navigation: "Navigation", collectionsTitle: "Collections", contactTitle: "Contact",
@@ -71,7 +71,7 @@ const translations = {
       eliteDoors: "Elite Series", s120Doors: "120 Series"
     },
     catalog: {
-      label: "Our Collection", heading: "Complete Door Catalog",
+      label: "Our Collection", heading: "Complete Door Catalogue",
       description: "46 models across five series. Steel entry doors manufactured in Uzbekistan.",
       allDoors: "All Doors", komfort: "Komfort", modern: "Modern", prestige: "Prestige",
       elite: "Elite", s120: "120 Series", emptyState: "No products in this category."
@@ -84,6 +84,7 @@ const translations = {
       excellence: "Constant Availability", excellenceDesc: "Products always in stock at the warehouse. No lengthy manufacturing wait times. Stable product quality.",
       innovation: "Production", innovationDesc: "Modern equipment and quality control at every stage. Capacity — up to 10,000 doors per month.",
       integrity: "Our Goal", integrityDesc: "A strong dealer network and sustainable partner growth. Fast turnover, stable sales, and business development.",
+      craftsmanshipLabel: "Craftsmanship", craftsmanshipHeading: "Precision in Every Detail", craftsmanshipDesc: "Every hinge, every lock, every finish — assembled with the care and attention that defines Fortis quality. Our skilled craftsmen bring decades of expertise to every door we produce.",
       journeyLabel: "Our Advantages", journeyHeading: "Why Work With Us",
       m1Year: "01", m1Title: "Reinforced Construction — Standard", m1Desc: "2 seal contours, 3 insulation layers, and 3 reinforced hinges at 75mm door thickness.",
       m2Year: "02", m2Title: "Reinforced Metal, Fair Price", m2Desc: "1mm door panel, 1.2mm frame. This thickness in China adds $5-7 to cost. With us — included.",
@@ -110,7 +111,7 @@ const translations = {
       reachVia: "or reach us via:"
     },
     productDetail: {
-      backToCatalog: "Back to Catalog",
+      backToCatalog: "Back to Catalogue",
       availableFinishes: "Panel Options",
       outerPanel: "Outer Panel Finishes",
       innerPanel: "Inner Panel Finishes",
@@ -260,6 +261,7 @@ const translations = {
       excellence: "Постоянное наличие", excellenceDesc: "Постоянное наличие товара на складе. Отсутствие длительных сроков производства. Стабильное качество продукции.",
       innovation: "Производство", innovationDesc: "Современное оборудование и контроль качества на каждом этапе. Мощность — до 10 000 дверей в месяц.",
       integrity: "Наша цель", integrityDesc: "Сильная дилерская сеть и стабильный рост партнёров. Быстрый оборот, стабильные продажи и развитие бизнеса.",
+      craftsmanshipLabel: "Мастерство", craftsmanshipHeading: "Точность в каждой детали", craftsmanshipDesc: "Каждая петля, каждый замок, каждая отделка — собраны с заботой и вниманием, которые определяют качество Fortis. Наши мастера привносят многолетний опыт в каждую произведённую дверь.",
       journeyLabel: "Наши преимущества", journeyHeading: "Почему с нами выгодно",
       m1Year: "01", m1Title: "Усиленная конструкция — в базе", m1Desc: "2 контура уплотнения, 3 уплотнителя и 3 усиленные петли при толщине полотна 75 мм.",
       m2Year: "02", m2Title: "Усиленный металл без переплаты", m2Desc: "1 мм — полотно, 1,2 мм — короб. Такая толщина у китайских производителей увеличивает стоимость на 5–7 $.",
@@ -436,6 +438,7 @@ const translations = {
       excellence: "Doimiy mavjudlik", excellenceDesc: "Mahsulot doimo omborda mavjud. Uzoq ishlab chiqarish muddatlarisiz. Barqaror sifat.",
       innovation: "Ishlab chiqarish", innovationDesc: "Zamonaviy uskunalar va har bosqichda sifat nazorati. Quvvat — oyiga 10 000 eshikgacha.",
       integrity: "Maqsadimiz", integrityDesc: "Kuchli dilerlik tarmog'i va hamkorlarning barqaror o'sishi. Tez aylanma, barqaror savdo va biznes rivojlanishi.",
+      craftsmanshipLabel: "Mahorat", craftsmanshipHeading: "Har bir detalda aniqlik", craftsmanshipDesc: "Har bir ilmoq, har bir qulf, har bir pardoz — Fortis sifatini belgilaydigan e'tibor va g'amxo'rlik bilan yig'ilgan. Bizning ustalarimiz har bir ishlab chiqarilgan eshikka ko'p yillik tajribani qo'shadi.",
       journeyLabel: "Afzalliklarimiz", journeyHeading: "Nima uchun biz bilan ishlash foydali",
       m1Year: "01", m1Title: "Mustahkamlangan konstruksiya — asosida", m1Desc: "75 mm qanotli qalinlikda 2 konturli zichlash, 3 zichlagich va 3 mustahkamlangan ilmoqlar.",
       m2Year: "02", m2Title: "Qo'shimcha to'lovsiz mustahkamlangan metall", m2Desc: "1 mm — qanot, 1,2 mm — korobka. Xitoyda bunday qalinlik narxni 5-7 dollarga oshiradi.",

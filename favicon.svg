@@ -1,10 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Fortis geometric F logo with dot -->
-  <rect width="64" height="64" rx="8" fill="#2C2C2C"/>
-  <g fill="#FAF8F5">
-    <!-- Main F body with rounded bottom-left -->
-    <path d="M12 8h28a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H28v8h12a4 4 0 0 1 4 4v4H28v12a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z"/>
-    <!-- Dot -->
-    <circle cx="44" cy="40" r="5"/>
-  </g>
+  <rect width="64" height="64" rx="12" fill="#2C2C2C"/>
+  <!-- Fortis geometric F — matched to official logo -->
+  <path fill="#FAF8F5" d="
+    M16 8
+    H46
+    Q52 8 52 14
+    V18
+    H26
+    V25
+    H38
+    Q42 25 42 29
+    V33
+    Q42 37 38 37
+    H26
+    V46
+    Q26 56 16 56
+    Q10 56 10 46
+    V14
+    Q10 8 16 8
+    Z
+  "/>
+  <circle cx="44" cy="44" r="5" fill="#FAF8F5"/>
 </svg>

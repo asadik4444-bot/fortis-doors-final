@@ -19,25 +19,13 @@
 
   <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bronze: {
-              50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
-              400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
-              800: '#523A26', 900: '#3A2919', 950: '#1F160D',
-            },
-          },
-          fontFamily: {
-            serif: ['DM Serif Display', 'Georgia', 'serif'],
-            sans: ['Outfit', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
+  <script src="js/tailwind-config.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Fortis Doors — Каталог дверей" />
+  <meta property="og:description" content="Премиальные стальные входные двери. Подробные характеристики и фото." />
+  <meta property="og:image" content="images/showroom-brand.jpg" />
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
@@ -46,13 +34,13 @@
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
   <!-- Custom Styles & Scripts -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 
   <style>[x-cloak] { display: none !important; }</style>
 </head>
-<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased">
+<body class="bg-[#FAF9F7] font-sans text-zinc-950 antialiased">
 
   <!-- ========== HEADER ========== -->
   <header
@@ -64,8 +52,8 @@
     <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="index.html" class="font-serif text-2xl text-zinc-950">
-          Fortis<span class="text-bronze-500">.</span>
+        <a href="index.html">
+          <img src="images/fortis-logo.png" alt="Fortis" class="h-8" />
         </a>
 
         <!-- Desktop Nav -->
@@ -159,9 +147,9 @@
         <section class="pt-36 pb-8 md:pt-44">
           <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
             <div class="flex items-center gap-2 text-sm">
-              <a href="catalog.html" class="text-zinc-500 hover:text-zinc-900 transition-colors" x-text="$store.i18n.t.productDetail.backToCatalog">Back to Catalog</a>
+              <a href="catalog.html" class="text-zinc-500 hover:text-zinc-950 transition-colors" x-text="$store.i18n.t.productDetail.backToCatalog">Back to Catalog</a>
               <i class="ph ph-caret-right text-zinc-400 text-xs"></i>
-              <span class="text-zinc-900" x-text="$store.i18n.t.products[product.slug].name"></span>
+              <span class="text-zinc-950" x-text="$store.i18n.t.products[product.slug].name"></span>
             </div>
           </div>
         </section>
@@ -189,35 +177,35 @@
                   <div class="grid grid-cols-2 gap-3">
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specDoorThickness"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.doorThickness"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.doorThickness"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specFrameThickness"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.frameThickness"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.frameThickness"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specMetalDoor"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.metalDoor"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.metalDoor"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specMetalFrame"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.metalFrame"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.metalFrame"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specSeals"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.seals"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.seals"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specLocks"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.locks"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.locks"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specInsulation"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.insulation"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.insulation"></span>
                     </div>
                     <div class="bg-zinc-50 rounded-2xl px-4 py-3">
                       <span class="text-xs text-zinc-400 block" x-text="$store.i18n.t.productDetail.specColor"></span>
-                      <span class="text-sm font-medium text-zinc-900" x-text="product.specs.color"></span>
+                      <span class="text-sm font-medium text-zinc-950" x-text="product.specs.color"></span>
                     </div>
                   </div>
                 </div>
@@ -335,8 +323,8 @@
 
         <!-- Col 1: Brand -->
         <div class="lg:col-span-1">
-          <a href="index.html" class="font-serif text-2xl text-white">
-            Fortis<span class="text-bronze-500">.</span>
+          <a href="index.html">
+            <img src="images/fortis-logo-light.png" alt="Fortis" class="h-8" />
           </a>
           <p class="text-zinc-400 text-sm leading-relaxed mt-4 max-w-xs" x-text="$store.i18n.t.footer.description">Premium doors crafted with precision and passion. Defining spaces since 2024.</p>
           <div class="flex items-center gap-3 mt-6">
@@ -378,7 +366,7 @@
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
               <i class="ph-fill ph-map-pin text-bronze-500 text-lg mt-0.5 shrink-0"></i>
-              <span class="text-zinc-400 text-sm">Tashkent, Uzbekistan</span>
+              <span class="text-zinc-400 text-sm" x-text="$store.i18n.t.contact.addressValue">Республика Узбекистан, Ташкентская область, Янгиюльский район, махалля Навруз, улица Самарканд, дом 215</span>
             </li>
             <li class="flex items-start gap-3">
               <i class="ph-fill ph-phone text-bronze-500 text-lg mt-0.5 shrink-0"></i>
@@ -406,6 +394,9 @@
   </footer>
 
 <!-- Floating WhatsApp -->
+<a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="floating-telegram" aria-label="Telegram">
+  <i class="ph-fill ph-telegram-logo text-2xl"></i>
+</a>
 <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
   <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
 </a>

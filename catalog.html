@@ -15,25 +15,13 @@
 
   <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bronze: {
-              50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
-              400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
-              800: '#523A26', 900: '#3A2919', 950: '#1F160D',
-            },
-          },
-          fontFamily: {
-            serif: ['DM Serif Display', 'Georgia', 'serif'],
-            sans: ['Outfit', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
+  <script src="js/tailwind-config.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Каталог — Fortis Doors" />
+  <meta property="og:description" content="46 моделей стальных входных дверей в 5 сериях. Комфорт, Модерн, Престиж, Элит, 120." />
+  <meta property="og:image" content="images/showroom-brand.jpg" />
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
@@ -42,7 +30,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
   <!-- Custom Styles & Scripts -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 
@@ -60,8 +48,8 @@
     <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="index.html" class="font-serif text-2xl text-zinc-950">
-          Fortis<span class="text-bronze-500">.</span>
+        <a href="index.html">
+          <img src="images/fortis-logo.png" alt="Fortis" class="h-8" />
         </a>
 
         <!-- Desktop Nav -->
@@ -258,12 +246,20 @@
           <h2 class="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-white mt-4 mb-6" style="text-wrap: balance;" x-text="$store.i18n.t.cta.heading">Can't Find What You Need?</h2>
           <p class="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-[65ch] mx-auto mb-10" x-text="$store.i18n.t.cta.description">Our team of craftsmen can create a custom door tailored to your exact specifications. Let's bring your vision to life.</p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="catalog.html" class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
-              <span x-text="$store.i18n.t.cta.browseCatalog">Browse Catalog</span>
+            <a href="contact.html" class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+              <span x-text="$store.i18n.t.cta.contactUs">Contact Us</span>
               <i class="ph-bold ph-arrow-right"></i>
             </a>
             <a href="contact.html" class="inline-flex items-center gap-2.5 text-zinc-400 hover:text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 border border-zinc-800 hover:border-zinc-700">
               <span x-text="$store.i18n.t.cta.contactUs">Contact Us</span>
+            </a>
+            <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-full text-sm font-medium transition-all duration-300 active:translate-y-[1px]">
+              <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-sky-500 hover:bg-sky-600 text-white px-6 py-3.5 rounded-full text-sm font-medium transition-all duration-300 active:translate-y-[1px]">
+              <i class="ph-fill ph-telegram-logo text-lg"></i>
+              <span>Telegram</span>
             </a>
           </div>
         </div>
@@ -278,8 +274,8 @@
 
         <!-- Col 1: Brand -->
         <div class="lg:col-span-1">
-          <a href="index.html" class="font-serif text-2xl text-white">
-            Fortis<span class="text-bronze-500">.</span>
+          <a href="index.html">
+            <img src="images/fortis-logo-light.png" alt="Fortis" class="h-8" />
           </a>
           <p class="text-zinc-400 text-sm leading-relaxed mt-4 max-w-xs" x-text="$store.i18n.t.footer.description">Premium doors crafted with precision and passion. Defining spaces since 2024.</p>
           <div class="flex items-center gap-3 mt-6">
@@ -321,7 +317,7 @@
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
               <i class="ph-fill ph-map-pin text-bronze-500 text-lg mt-0.5 shrink-0"></i>
-              <span class="text-zinc-400 text-sm">Янгиюль, Узбекистан</span>
+              <span class="text-zinc-400 text-sm" x-text="$store.i18n.t.contact.addressValue">Республика Узбекистан, Ташкентская область, Янгиюльский район, махалля Навруз, улица Самарканд, дом 215</span>
             </li>
             <li class="flex items-start gap-3">
               <i class="ph-fill ph-phone text-bronze-500 text-lg mt-0.5 shrink-0"></i>
@@ -349,6 +345,9 @@
   </footer>
 
 <!-- Floating WhatsApp -->
+<a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="floating-telegram" aria-label="Telegram">
+  <i class="ph-fill ph-telegram-logo text-2xl"></i>
+</a>
 <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
   <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
 </a>

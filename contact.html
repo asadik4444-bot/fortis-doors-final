@@ -14,25 +14,13 @@
 
   <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bronze: {
-              50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
-              400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
-              800: '#523A26', 900: '#3A2919', 950: '#1F160D',
-            },
-          },
-          fontFamily: {
-            serif: ['DM Serif Display', 'Georgia', 'serif'],
-            sans: ['Outfit', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
+  <script src="js/tailwind-config.js"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Контакты — Fortis Doors" />
+  <meta property="og:description" content="Свяжитесь с Fortis Doors. Янгиюль, Узбекистан. WhatsApp, Telegram, Email." />
+  <meta property="og:image" content="images/fortis-logo.png" />
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
@@ -41,13 +29,13 @@
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 
   <!-- Custom Styles & Scripts -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 
   <style>[x-cloak] { display: none !important; }</style>
 </head>
-<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased">
+<body class="bg-[#FAF9F7] font-sans text-zinc-950 antialiased">
 
   <!-- ========== HEADER ========== -->
   <header
@@ -59,8 +47,8 @@
     <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="index.html" class="font-serif text-2xl text-zinc-950">
-          Fortis<span class="text-bronze-500">.</span>
+        <a href="index.html">
+          <img src="images/fortis-logo.png" alt="Fortis" class="h-8" />
         </a>
 
         <!-- Desktop Nav -->
@@ -202,7 +190,7 @@
                   x-model="form.name"
                   required
                   :placeholder="$store.i18n.t.contactForm.namePlaceholder"
-                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
+                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-950 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
                 />
               </div>
 
@@ -218,7 +206,7 @@
                   x-model="form.email"
                   required
                   :placeholder="$store.i18n.t.contactForm.emailPlaceholder"
-                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
+                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-950 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
                 />
               </div>
 
@@ -232,7 +220,7 @@
                   type="tel"
                   x-model="form.phone"
                   :placeholder="$store.i18n.t.contactForm.phonePlaceholder"
-                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
+                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-950 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200"
                 />
               </div>
 
@@ -247,7 +235,7 @@
                     id="contact-subject"
                     x-model="form.subject"
                     required
-                    class="w-full appearance-none px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200 pr-10"
+                    class="w-full appearance-none px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-950 text-sm focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200 pr-10"
                   >
                     <option value="" disabled selected x-text="$store.i18n.t.contactForm.subjectPlaceholder">Select a subject</option>
                     <option value="general" x-text="$store.i18n.t.contactForm.subjectGeneral">General Inquiry</option>
@@ -274,7 +262,7 @@
                   required
                   rows="5"
                   :placeholder="$store.i18n.t.contactForm.messagePlaceholder"
-                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200 resize-none"
+                  class="w-full px-5 py-3.5 rounded-2xl border border-zinc-200 bg-zinc-50/50 text-zinc-950 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-bronze-500/20 focus:border-bronze-500 transition-all duration-200 resize-none"
                 ></textarea>
               </div>
             </div>
@@ -404,8 +392,8 @@
 
         <!-- Col 1: Brand -->
         <div class="lg:col-span-1">
-          <a href="index.html" class="font-serif text-2xl text-white">
-            Fortis<span class="text-bronze-500">.</span>
+          <a href="index.html">
+            <img src="images/fortis-logo-light.png" alt="Fortis" class="h-8" />
           </a>
           <p class="text-zinc-400 text-sm leading-relaxed mt-4 max-w-xs" x-text="$store.i18n.t.footer.description">Premium doors crafted with precision and passion. Defining spaces since 2024.</p>
           <div class="flex items-center gap-3 mt-6">
@@ -475,6 +463,9 @@
   </footer>
 
 <!-- Floating WhatsApp -->
+<a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="floating-telegram" aria-label="Telegram">
+  <i class="ph-fill ph-telegram-logo text-2xl"></i>
+</a>
 <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
   <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
 </a>

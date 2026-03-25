@@ -17,25 +17,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- 2. Tailwind Config -->
-    <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    bronze: {
-                        50: '#FAF5EF', 100: '#F2E8D9', 200: '#E5D0B3', 300: '#D4B48A',
-                        400: '#C49A64', 500: '#A67C52', 600: '#8A6340', 700: '#6E4E33',
-                        800: '#523A26', 900: '#3A2919', 950: '#1F160D',
-                    },
-                },
-                fontFamily: {
-                    serif: ['DM Serif Display', 'Georgia', 'serif'],
-                    sans: ['Outfit', 'system-ui', 'sans-serif'],
-                },
-            },
-        },
-    }
-    </script>
+    <script src="js/tailwind-config.js"></script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fortis Doors — Стальные входные двери" />
+    <meta property="og:description" content="Производитель стальных входных дверей. 46 моделей в 5 сериях. Янгиюль, Узбекистан." />
+    <meta property="og:image" content="images/showroom-brand.jpg" />
+    <meta property="og:type" content="website" />
 
     <!-- 3. Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
@@ -44,14 +32,22 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 
     <!-- 5. Custom CSS & Scripts -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
     <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
 
+    <!-- GSAP for scroll text reveal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <!-- Prevent flash of unstyled Alpine content -->
-    <style>[x-cloak] { display: none !important; }</style>
+    <style>
+      [x-cloak] { display: none !important; }
+      .text-reveal-word { display: inline-block; color: #d4d4d8; transition: color 0.1s; }
+      .text-reveal-word.active { color: #27272a; }
+    </style>
 </head>
-<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased" x-cloak>
+<body class="bg-[#FAF9F7] font-sans text-zinc-900 antialiased">
 
     <!-- ============================================== -->
     <!-- HEADER -->
@@ -66,9 +62,7 @@
             <nav class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="relative z-50">
-                    <span class="font-serif text-2xl tracking-tight" :class="scrolled || mobileOpen ? 'text-zinc-900' : 'text-white'">
-                        Fortis<span class="text-bronze-500">.</span>
-                    </span>
+                    <img src="images/fortis-logo.png" alt="Fortis" class="h-8 transition-all duration-300" :class="scrolled || mobileOpen ? '' : 'brightness-0 invert'" />
                 </a>
 
                 <!-- Desktop Navigation -->
@@ -206,8 +200,8 @@
     <section class="relative min-h-screen flex items-end bg-zinc-950 overflow-hidden">
         <!-- Background Video -->
         <div class="absolute inset-0">
-            <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
-                <source src="door1.mp4" type="video/mp4" />
+            <video autoplay loop muted playsinline poster="video/hero-poster.jpg" class="absolute inset-0 w-full h-full object-cover">
+                <source src="video/hero-bg.mp4" type="video/mp4" />
             </video>
         </div>
 
@@ -300,7 +294,7 @@
                 <!-- Image -->
                 <div class="lg:col-span-7 scroll-reveal" data-delay="0">
                     <div class="relative rounded-[2.5rem] overflow-hidden aspect-[4/3]">
-                        <img src="images/doors/about-doors.jpg" alt="Fortis Doors Craftsmanship" class="w-full h-full object-cover" loading="lazy">
+                        <img src="images/showroom-brand.jpg" alt="Fortis Doors Showroom" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/40 to-transparent"></div>
                         <!-- Badge -->
                         <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md rounded-2xl px-5 py-3 shadow-lg">
@@ -322,10 +316,10 @@
                     <h2 class="scroll-reveal font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] text-zinc-900 mb-6" data-delay="0.15" style="text-wrap: balance;"
                         x-text="$store.i18n.t.brand.heading"></h2>
 
-                    <p class="scroll-reveal text-base text-zinc-500 leading-relaxed mb-4" data-delay="0.2"
+                    <p class="text-reveal text-xl md:text-2xl leading-relaxed mb-4 font-light"
                        x-text="$store.i18n.t.brand.p1"></p>
 
-                    <p class="scroll-reveal text-base text-zinc-500 leading-relaxed mb-10" data-delay="0.25"
+                    <p class="text-reveal text-xl md:text-2xl leading-relaxed mb-10 font-light"
                        x-text="$store.i18n.t.brand.p2"></p>
 
                     <!-- Stats Row -->
@@ -404,10 +398,10 @@
 
                 <!-- Card 2: Modern -->
                 <a href="catalog.html?category=modern"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px]"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px]"
                    data-delay="0.1">
                     <img src="images/doors/modern-m1-black.jpg" alt="Modern Doors"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
@@ -424,10 +418,10 @@
 
                 <!-- Card 3: Prestige -->
                 <a href="catalog.html?category=prestige"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px]"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px]"
                    data-delay="0.15">
                     <img src="images/doors/prestige-p3-walnut.jpg" alt="Prestige Doors"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
@@ -444,10 +438,10 @@
 
                 <!-- Card 4: Elite -->
                 <a href="catalog.html?category=elite"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px] md:col-span-1"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px] md:col-span-1"
                    data-delay="0.2">
                     <img src="images/doors/elite-e2-cherry.jpg" alt="Elite Doors"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
@@ -464,10 +458,10 @@
 
                 <!-- Card 5: 120 Series -->
                 <a href="catalog.html?category=120"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[280px] md:col-span-2 lg:col-span-2"
+                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px] md:col-span-2 lg:col-span-2"
                    data-delay="0.25">
                     <img src="images/doors/s120-elite3-brown.jpg" alt="120 Series Doors"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
@@ -704,7 +698,7 @@
     <!-- ============================================== -->
     <!-- PROCESS SECTION -->
     <!-- ============================================== -->
-    <section class="py-24 md:py-32 lg:py-40 bg-amber-50/50">
+    <section class="py-24 md:py-32 lg:py-40 bg-bronze-50/50">
         <div class="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
             <!-- Header -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16 md:mb-20">
@@ -873,6 +867,16 @@
                            class="inline-flex items-center gap-2.5 text-white border border-white/20 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/10 active:translate-y-[1px]">
                             <span x-text="$store.i18n.t.cta.contactUs"></span>
                         </a>
+                        <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-full text-sm font-medium transition-all duration-300 active:translate-y-[1px]">
+                            <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-2.5 bg-sky-500 hover:bg-sky-600 text-white px-6 py-3.5 rounded-full text-sm font-medium transition-all duration-300 active:translate-y-[1px]">
+                            <i class="ph-fill ph-telegram-logo text-lg"></i>
+                            <span>Telegram</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -890,9 +894,7 @@
                 <!-- Column 1: Brand -->
                 <div>
                     <a href="index.html" class="inline-block mb-6">
-                        <span class="font-serif text-2xl tracking-tight text-white">
-                            Fortis<span class="text-bronze-500">.</span>
-                        </span>
+                        <img src="images/fortis-logo-light.png" alt="Fortis" class="h-8" />
                     </a>
                     <p class="text-sm text-zinc-500 leading-relaxed mb-6 max-w-[28ch]"
                        x-text="$store.i18n.t.footer.description"></p>
@@ -936,7 +938,7 @@
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
                             <i class="ph ph-map-pin text-bronze-500 text-lg mt-0.5"></i>
-                            <span class="text-sm text-zinc-500">Янгиюль, Узбекистан</span>
+                            <span class="text-sm text-zinc-500" x-text="$store.i18n.t.contact.addressValue">Республика Узбекистан, Ташкентская область, Янгиюльский район, махалля Навруз, улица Самарканд, дом 215</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="ph ph-phone text-bronze-500 text-lg"></i>
@@ -966,9 +968,41 @@
 
 
     <!-- Floating WhatsApp -->
+    <a href="https://t.me/fortisdoors" target="_blank" rel="noopener noreferrer" class="floating-telegram" aria-label="Telegram">
+        <i class="ph-fill ph-telegram-logo text-2xl"></i>
+    </a>
     <a href="https://wa.me/998930468008" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="WhatsApp">
         <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
     </a>
 
+<script>
+// Scroll Text Reveal — words transition from grey to dark as you scroll
+document.addEventListener('alpine:initialized', () => {
+  setTimeout(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.text-reveal').forEach(el => {
+      const text = el.textContent;
+      if (!text.trim()) return;
+      const words = text.split(/(\s+)/);
+      el.innerHTML = words.map(w =>
+        w.trim() ? `<span class="text-reveal-word">${w}</span>` : w
+      ).join('');
+
+      const wordEls = el.querySelectorAll('.text-reveal-word');
+      gsap.to(wordEls, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          end: 'top 25%',
+          scrub: 0.5,
+        },
+        color: '#27272a',
+        stagger: { each: 0.05, from: 'start' },
+        ease: 'none',
+      });
+    });
+  }, 500);
+});
+</script>
 </body>
 </html>
