@@ -419,9 +419,9 @@
                     </div>
 
                     <!-- Collection Info -->
-                    <div>
+                    <div class="relative min-h-[280px]">
                         <!-- Komfort -->
-                        <div x-show="active === 'komfort'" x-transition.opacity.duration.300ms>
+                        <div x-show="active === 'komfort'" x-transition.opacity.duration.300ms class="absolute inset-0">
                             <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
                                   x-text="'7 ' + ($store.i18n.t.collections.models || 'models')"></span>
                             <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
@@ -435,7 +435,7 @@
                             </a>
                         </div>
                         <!-- Modern -->
-                        <div x-show="active === 'modern'" x-transition.opacity.duration.300ms>
+                        <div x-show="active === 'modern'" x-transition.opacity.duration.300ms class="absolute inset-0">
                             <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
                                   x-text="'12 ' + ($store.i18n.t.collections.models || 'models')"></span>
                             <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
@@ -449,7 +449,7 @@
                             </a>
                         </div>
                         <!-- Prestige -->
-                        <div x-show="active === 'prestige'" x-transition.opacity.duration.300ms>
+                        <div x-show="active === 'prestige'" x-transition.opacity.duration.300ms class="absolute inset-0">
                             <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
                                   x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                             <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
@@ -463,7 +463,7 @@
                             </a>
                         </div>
                         <!-- Elite -->
-                        <div x-show="active === 'elite'" x-transition.opacity.duration.300ms>
+                        <div x-show="active === 'elite'" x-transition.opacity.duration.300ms class="absolute inset-0">
                             <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
                                   x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                             <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
@@ -477,7 +477,7 @@
                             </a>
                         </div>
                         <!-- 120 Series -->
-                        <div x-show="active === '120'" x-transition.opacity.duration.300ms>
+                        <div x-show="active === '120'" x-transition.opacity.duration.300ms class="absolute inset-0">
                             <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
                                   x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                             <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
