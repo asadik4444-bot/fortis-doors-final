@@ -373,114 +373,125 @@
                 </div>
             </div>
 
-            <!-- Collections Grid — vertical cards showing full door -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
-                <!-- Card 1: Komfort -->
-                <a href="catalog.html?category=komfort"
-                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
-                   data-delay="0">
-                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
-                        <img src="images/doors/komfort-k1.jpg" alt="Komfort Doors"
-                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
-                    </div>
-                    <div class="p-6 pt-0">
-                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
-                              x-text="'7 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
-                            x-text="$store.i18n.t.collections.komfort"></h3>
-                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
-                           x-text="$store.i18n.t.collections.komfortDesc"></p>
-                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
-                            <span x-text="$store.i18n.t.collections.label"></span>
-                            <i class="ph ph-arrow-right text-base"></i>
-                        </span>
-                    </div>
-                </a>
+            <!-- Interactive Collection Showcase -->
+            <div class="scroll-reveal" x-data="{ active: 'komfort' }">
+                <!-- Tab Navigation -->
+                <div class="flex flex-wrap gap-2 mb-12">
+                    <template x-for="tab in [
+                        {id: 'komfort', label: $store.i18n.t.collections.komfort},
+                        {id: 'modern', label: $store.i18n.t.collections.modern},
+                        {id: 'prestige', label: $store.i18n.t.collections.prestige},
+                        {id: 'elite', label: $store.i18n.t.collections.elite},
+                        {id: '120', label: $store.i18n.t.collections.s120}
+                    ]">
+                        <button @click="active = tab.id"
+                                :class="active === tab.id ? 'bg-bronze-500 text-white' : 'bg-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-700'"
+                                class="px-6 py-3 rounded-full text-sm font-medium transition-all duration-300"
+                                x-text="tab.label"></button>
+                    </template>
+                </div>
 
-                <!-- Card 2: Modern -->
-                <a href="catalog.html?category=modern"
-                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
-                   data-delay="0.1">
-                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
-                        <img src="images/doors/modern-m1-black.jpg" alt="Modern Doors"
-                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                <!-- Showcase Panel -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[520px]">
+                    <!-- Door Image — full height, no cropping -->
+                    <div class="flex justify-center">
+                        <div class="relative h-[480px] w-full max-w-[320px]">
+                            <template x-for="item in [
+                                {id: 'komfort', img: 'images/doors/komfort-k1.jpg'},
+                                {id: 'modern', img: 'images/doors/modern-m1-black.jpg'},
+                                {id: 'prestige', img: 'images/doors/prestige-p3-walnut.jpg'},
+                                {id: 'elite', img: 'images/doors/elite-e2-cherry.jpg'},
+                                {id: '120', img: 'images/doors/s120-elite3-brown.jpg'}
+                            ]">
+                                <img x-show="active === item.id"
+                                     x-transition:enter="transition ease-out duration-500"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-200"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 scale-95"
+                                     :src="item.img"
+                                     :alt="item.id"
+                                     class="absolute inset-0 w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                                     loading="lazy" />
+                            </template>
+                        </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
-                              x-text="'12 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
-                            x-text="$store.i18n.t.collections.modern"></h3>
-                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
-                           x-text="$store.i18n.t.collections.modernDesc"></p>
-                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
-                            <i class="ph ph-arrow-right text-base"></i>
-                        </span>
-                    </div>
-                </a>
 
-                <!-- Card 3: Prestige -->
-                <a href="catalog.html?category=prestige"
-                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
-                   data-delay="0.15">
-                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
-                        <img src="images/doors/prestige-p3-walnut.jpg" alt="Prestige Doors"
-                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    <!-- Collection Info -->
+                    <div>
+                        <!-- Komfort -->
+                        <div x-show="active === 'komfort'" x-transition.opacity.duration.300ms>
+                            <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
+                                  x-text="'7 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                            <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
+                                x-text="$store.i18n.t.collections.komfort"></h3>
+                            <p class="text-base text-zinc-400 leading-relaxed mb-8 max-w-[50ch]"
+                               x-text="$store.i18n.t.collections.komfortDesc"></p>
+                            <a href="catalog.html?category=komfort"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.collections.label || 'View Collection'"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                        </div>
+                        <!-- Modern -->
+                        <div x-show="active === 'modern'" x-transition.opacity.duration.300ms>
+                            <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
+                                  x-text="'12 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                            <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
+                                x-text="$store.i18n.t.collections.modern"></h3>
+                            <p class="text-base text-zinc-400 leading-relaxed mb-8 max-w-[50ch]"
+                               x-text="$store.i18n.t.collections.modernDesc"></p>
+                            <a href="catalog.html?category=modern"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.collections.label || 'View Collection'"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                        </div>
+                        <!-- Prestige -->
+                        <div x-show="active === 'prestige'" x-transition.opacity.duration.300ms>
+                            <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
+                                  x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                            <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
+                                x-text="$store.i18n.t.collections.prestige"></h3>
+                            <p class="text-base text-zinc-400 leading-relaxed mb-8 max-w-[50ch]"
+                               x-text="$store.i18n.t.collections.prestigeDesc"></p>
+                            <a href="catalog.html?category=prestige"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.collections.label || 'View Collection'"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                        </div>
+                        <!-- Elite -->
+                        <div x-show="active === 'elite'" x-transition.opacity.duration.300ms>
+                            <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
+                                  x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                            <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
+                                x-text="$store.i18n.t.collections.elite"></h3>
+                            <p class="text-base text-zinc-400 leading-relaxed mb-8 max-w-[50ch]"
+                               x-text="$store.i18n.t.collections.eliteDesc"></p>
+                            <a href="catalog.html?category=elite"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.collections.label || 'View Collection'"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                        </div>
+                        <!-- 120 Series -->
+                        <div x-show="active === '120'" x-transition.opacity.duration.300ms>
+                            <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-3 block"
+                                  x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
+                            <h3 class="font-serif text-3xl md:text-5xl text-white mb-4"
+                                x-text="$store.i18n.t.collections.s120"></h3>
+                            <p class="text-base text-zinc-400 leading-relaxed mb-8 max-w-[50ch]"
+                               x-text="$store.i18n.t.collections.s120Desc"></p>
+                            <a href="catalog.html?category=120"
+                               class="inline-flex items-center gap-2.5 bg-bronze-500 text-white px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-bronze-600 active:translate-y-[1px]">
+                                <span x-text="$store.i18n.t.collections.label || 'View Collection'"></span>
+                                <i class="ph ph-arrow-right text-base"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
-                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
-                            x-text="$store.i18n.t.collections.prestige"></h3>
-                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
-                           x-text="$store.i18n.t.collections.prestigeDesc"></p>
-                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
-                            <i class="ph ph-arrow-right text-base"></i>
-                        </span>
-                    </div>
-                </a>
-
-                <!-- Card 4: Elite -->
-                <a href="catalog.html?category=elite"
-                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
-                   data-delay="0.2">
-                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
-                        <img src="images/doors/elite-e2-cherry.jpg" alt="Elite Doors"
-                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
-                    </div>
-                    <div class="p-6 pt-0">
-                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
-                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
-                            x-text="$store.i18n.t.collections.elite"></h3>
-                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
-                           x-text="$store.i18n.t.collections.eliteDesc"></p>
-                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
-                            <i class="ph ph-arrow-right text-base"></i>
-                        </span>
-                    </div>
-                </a>
-
-                <!-- Card 5: 120 Series -->
-                <a href="catalog.html?category=120"
-                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
-                   data-delay="0.25">
-                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
-                        <img src="images/doors/s120-elite3-brown.jpg" alt="120 Series Doors"
-                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
-                    </div>
-                    <div class="p-6 pt-0">
-                        <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
-                              x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
-                            x-text="$store.i18n.t.collections.s120"></h3>
-                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
-                           x-text="$store.i18n.t.collections.s120Desc"></p>
-                        <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
-                            <span x-text="$store.i18n.t.collections.label"></span>
-                            <i class="ph ph-arrow-right text-base"></i>
-                        </span>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
