@@ -373,21 +373,22 @@
                 </div>
             </div>
 
-            <!-- Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <!-- Card 1: Komfort — spans 2 cols + 2 rows on lg -->
+            <!-- Collections Grid — vertical cards showing full door -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+                <!-- Card 1: Komfort -->
                 <a href="catalog.html?category=komfort"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden lg:col-span-2 lg:row-span-2 min-h-[320px] lg:min-h-[640px]"
+                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
                    data-delay="0">
-                    <img src="images/doors/komfort-k1.jpg" alt="Komfort Doors"
-                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-10">
+                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
+                        <img src="images/doors/komfort-k1.jpg" alt="Komfort Doors"
+                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    </div>
+                    <div class="p-6 pt-0">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
                               x-text="'7 ' + ($store.i18n.t.collections.models || 'models')"></span>
-                        <h3 class="font-serif text-2xl md:text-3xl text-white mb-2"
+                        <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
                             x-text="$store.i18n.t.collections.komfort"></h3>
-                        <p class="text-sm text-zinc-400 max-w-[40ch] mb-4"
+                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
                            x-text="$store.i18n.t.collections.komfortDesc"></p>
                         <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
                             <span x-text="$store.i18n.t.collections.label"></span>
@@ -398,17 +399,18 @@
 
                 <!-- Card 2: Modern -->
                 <a href="catalog.html?category=modern"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px]"
+                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
                    data-delay="0.1">
-                    <img src="images/doors/modern-m1-black.jpg" alt="Modern Doors"
-                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
+                        <img src="images/doors/modern-m1-black.jpg" alt="Modern Doors"
+                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    </div>
+                    <div class="p-6 pt-0">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
                               x-text="'12 ' + ($store.i18n.t.collections.models || 'models')"></span>
                         <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
                             x-text="$store.i18n.t.collections.modern"></h3>
-                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
                            x-text="$store.i18n.t.collections.modernDesc"></p>
                         <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
                             <i class="ph ph-arrow-right text-base"></i>
@@ -418,17 +420,18 @@
 
                 <!-- Card 3: Prestige -->
                 <a href="catalog.html?category=prestige"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px]"
+                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
                    data-delay="0.15">
-                    <img src="images/doors/prestige-p3-walnut.jpg" alt="Prestige Doors"
-                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
+                        <img src="images/doors/prestige-p3-walnut.jpg" alt="Prestige Doors"
+                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    </div>
+                    <div class="p-6 pt-0">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
                               x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                         <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
                             x-text="$store.i18n.t.collections.prestige"></h3>
-                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
                            x-text="$store.i18n.t.collections.prestigeDesc"></p>
                         <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
                             <i class="ph ph-arrow-right text-base"></i>
@@ -438,17 +441,18 @@
 
                 <!-- Card 4: Elite -->
                 <a href="catalog.html?category=elite"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px] md:col-span-1"
+                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
                    data-delay="0.2">
-                    <img src="images/doors/elite-e2-cherry.jpg" alt="Elite Doors"
-                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
+                        <img src="images/doors/elite-e2-cherry.jpg" alt="Elite Doors"
+                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    </div>
+                    <div class="p-6 pt-0">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
                               x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                         <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
                             x-text="$store.i18n.t.collections.elite"></h3>
-                        <p class="text-sm text-zinc-400 max-w-[35ch] mb-3"
+                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
                            x-text="$store.i18n.t.collections.eliteDesc"></p>
                         <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
                             <i class="ph ph-arrow-right text-base"></i>
@@ -458,17 +462,18 @@
 
                 <!-- Card 5: 120 Series -->
                 <a href="catalog.html?category=120"
-                   class="scroll-reveal group relative rounded-[2rem] overflow-hidden min-h-[380px] md:col-span-2 lg:col-span-2"
+                   class="scroll-reveal group rounded-[2rem] overflow-hidden bg-zinc-950 flex flex-col"
                    data-delay="0.25">
-                    <img src="images/doors/s120-elite3-brown.jpg" alt="120 Series Doors"
-                         class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/30 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                    <div class="relative flex-1 flex items-center justify-center p-6 pt-8 min-h-[320px]">
+                        <img src="images/doors/s120-elite3-brown.jpg" alt="120 Series Doors"
+                             class="max-h-[280px] w-auto object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" loading="lazy">
+                    </div>
+                    <div class="p-6 pt-0">
                         <span class="text-xs font-medium uppercase tracking-[0.15em] text-bronze-400 mb-2 block"
                               x-text="'9 ' + ($store.i18n.t.collections.models || 'models')"></span>
                         <h3 class="font-serif text-xl md:text-2xl text-white mb-1"
                             x-text="$store.i18n.t.collections.s120"></h3>
-                        <p class="text-sm text-zinc-400 max-w-[40ch] mb-3"
+                        <p class="text-sm text-zinc-400 mb-3 line-clamp-2"
                            x-text="$store.i18n.t.collections.s120Desc"></p>
                         <span class="inline-flex items-center gap-2 text-sm text-bronze-400 font-medium group-hover:gap-3 transition-all">
                             <span x-text="$store.i18n.t.collections.label"></span>
